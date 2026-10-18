@@ -1,0 +1,168 @@
+<!doctype html><html lang='zh-CN'><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'>
+<title>LiveOps Analyst · 分析报告</title><style>
+:root{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;color:#152439;background:#eef2f7;line-height:1.6}body{max-width:1160px;margin:0 auto;padding:36px 24px}header{padding:32px;border-radius:20px;background:#122c47;color:#fff}header p{color:#c4d3e2}.badge{display:inline-block;background:#1e526a;padding:4px 12px;border-radius:24px;font-size:13px}h1{font-size:32px;letter-spacing:-1px}h2{font-size:19px}section{background:#fff;margin:20px 0;padding:24px;border:1px solid #dce3eb;border-radius:16px}.scroll{overflow:auto}table{border-collapse:collapse;width:100%;font-size:13px}th{background:#f0f4f8;text-align:left}td,th{padding:10px;border-bottom:1px solid #e4eaf0;white-space:nowrap}td{font-variant-numeric:tabular-nums}a{color:#007f83}details{margin-top:20px;font-size:13px;color:#486179}summary{cursor:pointer}pre{overflow:auto;background:#f4f7fa;padding:16px}.warning{background:#fff7df;padding:12px;border-radius:8px}footer{color:#52657b;font-size:13px}small{color:#59768d}
+</style><header><span class='badge'>SYNTHETIC DATA · 内部草稿</span><h1>印尼直播业务分析</h1><p>2026-10-15 · Asia/Jakarta · 单 Agent / Skills / Python</p><p>运行 demo-payment-20261015</p></header><section><h2>check_data_quality · e0003</h2><p>质量门禁：passed；29/29 项通过。</p><details><summary>查看调用与查询证据</summary><p>data-quality-check · 332.623 ms</p><a href='e0003.json'>打开原始 JSON / SQL</a><pre>{
+  &quot;arguments&quot;: {
+    &quot;start_date&quot;: &quot;2026-10-08&quot;,
+    &quot;end_date&quot;: &quot;2026-10-15&quot;
+  },
+  &quot;query_ids&quot;: [
+    &quot;q-2c4dfc4b15786e20&quot;,
+    &quot;q-51fb538bd582945f&quot;,
+    &quot;q-1666b3e2370c8b29&quot;,
+    &quot;q-572c3bdb3257f94e&quot;,
+    &quot;q-bbf96a7cceba946c&quot;,
+    &quot;q-f85b0ae52027c4e3&quot;,
+    &quot;q-60ccab1988d0920c&quot;,
+    &quot;q-c9512f741d9c618a&quot;,
+    &quot;q-daac359a5f9a203e&quot;,
+    &quot;q-ee38adb2ff0ed7c6&quot;,
+    &quot;q-6c1eaf0d2672e31b&quot;,
+    &quot;q-02991d4632b385c9&quot;,
+    &quot;q-66e7710c5045fc6f&quot;,
+    &quot;q-4e2c2a4af52a6e23&quot;,
+    &quot;q-509379b492684985&quot;,
+    &quot;q-6392ed79b2340321&quot;,
+    &quot;q-405a5267bc81982e&quot;,
+    &quot;q-85ec192a5b4d782d&quot;,
+    &quot;q-e5882d13e7f72e0a&quot;,
+    &quot;q-d40444766662438b&quot;,
+    &quot;q-f1ca314acc6ae0ea&quot;,
+    &quot;q-e6eab6261a8ef93b&quot;,
+    &quot;q-216ff09b1f852ddc&quot;,
+    &quot;q-c59562124e68dbb9&quot;,
+    &quot;q-3a40db1b68cc7009&quot;,
+    &quot;q-69560a4072d373b4&quot;,
+    &quot;q-020d10321fbc5210&quot;,
+    &quot;q-09807395ef5f9562&quot;,
+    &quot;q-feb5d505e6b8f6bd&quot;,
+    &quot;q-ddd4c36339e3fd6a&quot;
+  ]
+}</pre></details></section><section><h2>query_kpis · e0004</h2><div class='scroll'><table><thead><tr><th>日期</th><th>分组</th><th>指标</th><th>值</th><th>单位</th></tr></thead><tbody><tr><td>2026-10-15</td><td>all</td><td>active_uv</td><td>1,750</td><td>users</td></tr><tr><td>2026-10-15</td><td>all</td><td>paying_uv</td><td>134</td><td>users</td></tr><tr><td>2026-10-15</td><td>all</td><td>payer_conversion</td><td>7.66%</td><td>ratio</td></tr><tr><td>2026-10-15</td><td>all</td><td>payment_success_rate</td><td>47.22%</td><td>ratio</td></tr><tr><td>2026-10-15</td><td>all</td><td>gross_gmv_idr</td><td>8,900,000</td><td>IDR</td></tr></tbody></table></div><details><summary>查看调用与查询证据</summary><p>business-kpi-analysis · 333.799 ms</p><a href='e0004.json'>打开原始 JSON / SQL</a><pre>{
+  &quot;arguments&quot;: {
+    &quot;start_date&quot;: &quot;2026-10-15&quot;,
+    &quot;end_date&quot;: &quot;2026-10-15&quot;,
+    &quot;metrics&quot;: [
+      &quot;active_uv&quot;,
+      &quot;paying_uv&quot;,
+      &quot;payer_conversion&quot;,
+      &quot;payment_success_rate&quot;,
+      &quot;gross_gmv_idr&quot;
+    ]
+  },
+  &quot;query_ids&quot;: [
+    &quot;q-2c4dfc4b15786e20&quot;,
+    &quot;q-51fb538bd582945f&quot;,
+    &quot;q-1666b3e2370c8b29&quot;,
+    &quot;q-572c3bdb3257f94e&quot;,
+    &quot;q-bbf96a7cceba946c&quot;,
+    &quot;q-f85b0ae52027c4e3&quot;,
+    &quot;q-60ccab1988d0920c&quot;,
+    &quot;q-c9512f741d9c618a&quot;,
+    &quot;q-daac359a5f9a203e&quot;,
+    &quot;q-ee38adb2ff0ed7c6&quot;,
+    &quot;q-6c1eaf0d2672e31b&quot;,
+    &quot;q-02991d4632b385c9&quot;,
+    &quot;q-011c5de7535c214e&quot;,
+    &quot;q-4e2c2a4af52a6e23&quot;,
+    &quot;q-509379b492684985&quot;,
+    &quot;q-d2316056a7c0d7b6&quot;,
+    &quot;q-405a5267bc81982e&quot;,
+    &quot;q-85ec192a5b4d782d&quot;,
+    &quot;q-3c7693f2a3beda9d&quot;,
+    &quot;q-d40444766662438b&quot;,
+    &quot;q-f1ca314acc6ae0ea&quot;,
+    &quot;q-e6eab6261a8ef93b&quot;,
+    &quot;q-216ff09b1f852ddc&quot;,
+    &quot;q-c59562124e68dbb9&quot;,
+    &quot;q-3a40db1b68cc7009&quot;,
+    &quot;q-69560a4072d373b4&quot;,
+    &quot;q-020d10321fbc5210&quot;,
+    &quot;q-09807395ef5f9562&quot;,
+    &quot;q-feb5d505e6b8f6bd&quot;,
+    &quot;q-ddd4c36339e3fd6a&quot;,
+    &quot;q-84f7f7e6b02d447d&quot;
+  ]
+}</pre></details></section><section><h2>detect_anomalies · e0005</h2><div class='scroll'><table><thead><tr><th>分组</th><th>指标</th><th>当日</th><th>前7日中位数</th><th>变化(pp / 相对%)</th><th>告警</th><th>状态</th></tr></thead><tbody><tr><td>all</td><td>active_uv</td><td>1,750</td><td>1,356</td><td>29.06%</td><td>False</td><td>ok</td></tr><tr><td>all</td><td>payer_conversion</td><td>7.66%</td><td>11.54%</td><td>-3.88 pp</td><td>True</td><td>ok</td></tr><tr><td>all</td><td>payment_success_rate</td><td>47.22%</td><td>94.24%</td><td>-47.01 pp</td><td>True</td><td>ok</td></tr><tr><td>all</td><td>gross_gmv_idr</td><td>8,900,000</td><td>12,330,000</td><td>-27.82%</td><td>False</td><td>ok</td></tr></tbody></table></div><details><summary>查看调用与查询证据</summary><p>anomaly-monitoring · 364.82 ms</p><a href='e0005.json'>打开原始 JSON / SQL</a><pre>{
+  &quot;arguments&quot;: {
+    &quot;date&quot;: &quot;2026-10-15&quot;,
+    &quot;metrics&quot;: [
+      &quot;active_uv&quot;,
+      &quot;payer_conversion&quot;,
+      &quot;payment_success_rate&quot;,
+      &quot;gross_gmv_idr&quot;
+    ]
+  },
+  &quot;query_ids&quot;: [
+    &quot;q-2c4dfc4b15786e20&quot;,
+    &quot;q-51fb538bd582945f&quot;,
+    &quot;q-1666b3e2370c8b29&quot;,
+    &quot;q-572c3bdb3257f94e&quot;,
+    &quot;q-bbf96a7cceba946c&quot;,
+    &quot;q-f85b0ae52027c4e3&quot;,
+    &quot;q-60ccab1988d0920c&quot;,
+    &quot;q-c9512f741d9c618a&quot;,
+    &quot;q-daac359a5f9a203e&quot;,
+    &quot;q-ee38adb2ff0ed7c6&quot;,
+    &quot;q-6c1eaf0d2672e31b&quot;,
+    &quot;q-02991d4632b385c9&quot;,
+    &quot;q-66e7710c5045fc6f&quot;,
+    &quot;q-4e2c2a4af52a6e23&quot;,
+    &quot;q-509379b492684985&quot;,
+    &quot;q-6392ed79b2340321&quot;,
+    &quot;q-405a5267bc81982e&quot;,
+    &quot;q-85ec192a5b4d782d&quot;,
+    &quot;q-e5882d13e7f72e0a&quot;,
+    &quot;q-d40444766662438b&quot;,
+    &quot;q-f1ca314acc6ae0ea&quot;,
+    &quot;q-e6eab6261a8ef93b&quot;,
+    &quot;q-216ff09b1f852ddc&quot;,
+    &quot;q-c59562124e68dbb9&quot;,
+    &quot;q-3a40db1b68cc7009&quot;,
+    &quot;q-69560a4072d373b4&quot;,
+    &quot;q-020d10321fbc5210&quot;,
+    &quot;q-09807395ef5f9562&quot;,
+    &quot;q-feb5d505e6b8f6bd&quot;,
+    &quot;q-ddd4c36339e3fd6a&quot;,
+    &quot;q-f3c4aef9579f1f88&quot;
+  ]
+}</pre></details></section><section><h2>get_dimension_breakdown · e0006</h2><div class='scroll'><table><thead><tr><th>分组</th><th>指标</th><th>当日</th><th>前7日中位数</th><th>变化(pp / 相对%)</th><th>告警</th><th>状态</th></tr></thead><tbody><tr><td>Android</td><td>payment_success_rate</td><td>33.33%</td><td>93.88%</td><td>-60.55 pp</td><td>True</td><td>ok</td></tr><tr><td>iOS</td><td>payment_success_rate</td><td>92.16%</td><td>94.38%</td><td>-2.23 pp</td><td>False</td><td>ok</td></tr></tbody></table></div><p>贡献基线使用前七天合并成功率，与告警的每日中位数不同。各组端内效应与占比效应之和等于整体变化。</p><p>整体变化 <strong>-47.60 pp</strong></p><div class='scroll'><table><thead><tr><th>分组</th><th>当日成功率</th><th>历史合并成功率</th><th>组内成功率效应</th><th>占比效应</th></tr></thead><tbody><tr><td>Android</td><td>33.33%</td><td>94.80%</td><td>-46.96 pp</td><td>-1.31 pp</td></tr><tr><td>iOS</td><td>92.16%</td><td>94.89%</td><td>-0.64 pp</td><td>+1.31 pp</td></tr></tbody></table></div><details><summary>查看调用与查询证据</summary><p>root-cause-drilldown · 335.893 ms</p><a href='e0006.json'>打开原始 JSON / SQL</a><pre>{
+  &quot;arguments&quot;: {
+    &quot;date&quot;: &quot;2026-10-15&quot;,
+    &quot;metric&quot;: &quot;payment_success_rate&quot;,
+    &quot;dimension&quot;: &quot;platform&quot;
+  },
+  &quot;query_ids&quot;: [
+    &quot;q-2c4dfc4b15786e20&quot;,
+    &quot;q-51fb538bd582945f&quot;,
+    &quot;q-1666b3e2370c8b29&quot;,
+    &quot;q-572c3bdb3257f94e&quot;,
+    &quot;q-bbf96a7cceba946c&quot;,
+    &quot;q-f85b0ae52027c4e3&quot;,
+    &quot;q-60ccab1988d0920c&quot;,
+    &quot;q-c9512f741d9c618a&quot;,
+    &quot;q-daac359a5f9a203e&quot;,
+    &quot;q-ee38adb2ff0ed7c6&quot;,
+    &quot;q-6c1eaf0d2672e31b&quot;,
+    &quot;q-02991d4632b385c9&quot;,
+    &quot;q-66e7710c5045fc6f&quot;,
+    &quot;q-4e2c2a4af52a6e23&quot;,
+    &quot;q-509379b492684985&quot;,
+    &quot;q-6392ed79b2340321&quot;,
+    &quot;q-405a5267bc81982e&quot;,
+    &quot;q-85ec192a5b4d782d&quot;,
+    &quot;q-e5882d13e7f72e0a&quot;,
+    &quot;q-d40444766662438b&quot;,
+    &quot;q-f1ca314acc6ae0ea&quot;,
+    &quot;q-e6eab6261a8ef93b&quot;,
+    &quot;q-216ff09b1f852ddc&quot;,
+    &quot;q-c59562124e68dbb9&quot;,
+    &quot;q-3a40db1b68cc7009&quot;,
+    &quot;q-69560a4072d373b4&quot;,
+    &quot;q-020d10321fbc5210&quot;,
+    &quot;q-09807395ef5f9562&quot;,
+    &quot;q-feb5d505e6b8f6bd&quot;,
+    &quot;q-ddd4c36339e3fd6a&quot;,
+    &quot;q-f97872cc476b6362&quot;
+  ]
+}</pre></details></section><section><h2>Agent 观察</h2><ul><li>质量门禁通过；当前检查未发现重复、孤儿记录或支付交易对账不一致。 <small>e0003</small></li><li>观看用户增长的同时，付费转化与支付成功率均触发下降告警；支付环节值得优先排查。 <small>e0004, e0005</small></li><li>Android 支付成功率显著下降，iOS 未触发同样的下降阈值；端别贡献拆解表明，Android 组内成功率变化是主要负向项。 <small>e0006</small></li><li>GMV 也下降，但没有触发当前相对变化阈值；未告警不等于没有业务影响。 <small>e0005</small></li></ul></section><section><h2>待验证的解释</h2><ul><li>与 Android 关联的支付链路、应用版本或支付方式差异值得核查；这些是候选解释，现有聚合数据不足以证明故障或收入变化的因果。 <small>e0006</small></li></ul></section><section><h2>下一步调查</h2><ul><li>优先调取 Android 支付失败错误码、应用版本、网关返回码和支付方式分布，并对照 iOS 与历史同期；当前快照不含这些证据。 <small>e0006</small></li><li>本轮端别拆解已足以提出调查方向，停止进一步扩展维度；如补充渠道或版本证据，再做针对性交叉验证。 <small>e0006</small></li></ul></section><footer>数据仅支持描述性比较和异常线索，不能证明技术故障或业务因果；缺少支付网关日志、错误码、版本与退款数据。风险规则命中仅表示待人工复核。未对效率收益做实测。</footer></html>

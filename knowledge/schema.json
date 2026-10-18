@@ -1,0 +1,14 @@
+{
+  "dialect":"sqlite",
+  "note":"以下为执行工具注入的只读逻辑数据源；工具自动限制日期与主播范围，不能直接访问物理表。",
+  "sources": {
+    "watch_events":{"grain":"一次观看会话","columns":{"date":"业务日期YYYY-MM-DD","viewer_id":"仅允许COUNT(DISTINCT viewer_id)，不能输出/筛选/关联用户明细","streamer_id":"合成主播ID","duration_seconds":"非负观看秒数"}},
+    "gift_events":{"grain":"一笔成功打赏","columns":{"date":"业务日期","streamer_id":"收礼主播ID","amount_idr":"成功打赏金额，整数IDR"}},
+    "broadcast_days":{"grain":"单主播单日，含不开播零记录","columns":{"date":"业务日期","streamer_id":"主播ID","live_seconds":"实际开播秒数"}},
+    "streamer_profiles":{"grain":"单主播","columns":{"streamer_id":"主播ID","tier":"head/mid/tail","category":"music/gaming/chat"}},
+    "boost_snapshots":{"grain":"单主播单日","columns":{"date":"业务日期","streamer_id":"主播ID","allocated_units":"历史实际助推额度，非建议值"}},
+    "campaign_members":{"grain":"活动-主播","columns":{"campaign_id":"活动ID","streamer_id":"主播ID"}}
+  },
+  "joins":["事件的streamer_id关联streamer_profiles.streamer_id", "按(date,streamer_id)聚合watch_events后再关联broadcast_days", "活动范围由prepare_analysis固定；不能更换名单做前后对比"],
+  "reserved_parameters":["start_date","end_date","current_start","current_end","baseline_start","baseline_end","report_date","previous_snapshot_date","min_live_seconds","min_watch_seconds","drop_threshold","min_viewers","boost_days","boost_viewers","boost_units"]
+}

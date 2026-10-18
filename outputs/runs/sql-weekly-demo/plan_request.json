@@ -1,0 +1,67 @@
+{
+  "identity": "672bc167e756ddfc93b70225a4712b37765b609e4e6141d15d7f11d28ccfb3e2",
+  "request": {
+    "plan": {
+      "workflow": "weekly_report",
+      "report_date": "2026-10-17",
+      "queries": [
+        {
+          "sql_file": "../../knowledge/sql_examples/period_metrics.sql",
+          "result_kind": "metrics",
+          "window": "current",
+          "label": "本期五项核心指标"
+        },
+        {
+          "sql_file": "../../knowledge/sql_examples/period_comparison.sql",
+          "result_kind": "comparison",
+          "window": "comparison",
+          "label": "整体与层级周期对比"
+        },
+        {
+          "sql_file": "tail_streamers.sql",
+          "result_kind": "table",
+          "window": "current",
+          "filters": {
+            "streamer_tier": "tail"
+          },
+          "label": "尾部主播观看表现下钻",
+          "only_if_alerts": true
+        }
+      ],
+      "notes": {
+        "observations": [
+          "整体与层级分别监控，避免整体表现掩盖局部下降；追加查询用于查看尾部主播的观看分布。"
+        ],
+        "next_checks": [
+          "若需证明变化原因，还应补充活动曝光与分发记录；当前聚合比较只支持现象与排查方向。"
+        ]
+      }
+    },
+    "sql": [
+      {
+        "result_kind": "metrics",
+        "window": "current",
+        "label": "本期五项核心指标",
+        "sql": "-- 整体五指标参考。日期和主播范围由工具注入，不读取物理表。\nWITH watch_day AS (\n  SELECT date, streamer_id, SUM(duration_seconds) AS watch_seconds\n  FROM watch_events GROUP BY date, streamer_id\n), watch_total AS (\n  SELECT SUM(duration_seconds) / 3600.0 AS watch_duration_hours,\n         COUNT(DISTINCT viewer_id) AS viewer_uv FROM watch_events\n), gift_total AS (\n  SELECT SUM(amount_idr) AS gift_amount_idr FROM gift_events\n), live_total AS (\n  SELECT SUM(b.live_seconds) / 3600.0 AS live_duration_hours,\n         SUM(CASE WHEN b.live_seconds > 0 AND b.live_seconds >= :min_live_seconds\n                   AND COALESCE(w.watch_seconds, 0) >= :min_watch_seconds THEN 1 ELSE 0 END) AS effective_live_days\n  FROM broadcast_days b LEFT JOIN watch_day w ON b.date = w.date AND b.streamer_id = w.streamer_id\n)\nSELECT 'all' AS dimension, COALESCE(g.gift_amount_idr, 0) AS gift_amount_idr,\n       COALESCE(w.watch_duration_hours, 0) AS watch_duration_hours,\n       COALESCE(l.effective_live_days, 0) AS effective_live_days,\n       COALESCE(l.live_duration_hours, 0) AS live_duration_hours, w.viewer_uv\nFROM live_total l CROSS JOIN watch_total w CROSS JOIN gift_total g\n"
+      },
+      {
+        "result_kind": "comparison",
+        "window": "comparison",
+        "label": "整体与层级周期对比",
+        "sql": "-- 相同名单、等长当前/基线窗口；整体与层级同时统计，UV各自独立去重。\nWITH dimensions AS (\n  SELECT 'all' AS dimension UNION ALL SELECT tier AS dimension FROM streamer_profiles GROUP BY tier\n), watch_day AS (\n  SELECT date, streamer_id, SUM(duration_seconds) AS watch_seconds\n  FROM watch_events GROUP BY date, streamer_id\n), watches AS (\n  SELECT CASE WHEN v.date BETWEEN :current_start AND :current_end THEN 'current' ELSE 'baseline' END AS period,\n         d.dimension, SUM(v.duration_seconds) / 3600.0 AS watch_duration_hours,\n         COUNT(DISTINCT v.viewer_id) AS viewer_uv\n  FROM watch_events v JOIN streamer_profiles s ON v.streamer_id = s.streamer_id\n  JOIN dimensions d ON d.dimension = 'all' OR d.dimension = s.tier\n  GROUP BY period, d.dimension\n), gifts AS (\n  SELECT CASE WHEN g.date BETWEEN :current_start AND :current_end THEN 'current' ELSE 'baseline' END AS period,\n         d.dimension, SUM(g.amount_idr) AS gift_amount_idr\n  FROM gift_events g JOIN streamer_profiles s ON g.streamer_id = s.streamer_id\n  JOIN dimensions d ON d.dimension = 'all' OR d.dimension = s.tier GROUP BY period, d.dimension\n), live AS (\n  SELECT CASE WHEN b.date BETWEEN :current_start AND :current_end THEN 'current' ELSE 'baseline' END AS period,\n         d.dimension, SUM(b.live_seconds) / 3600.0 AS live_duration_hours,\n         SUM(CASE WHEN b.live_seconds > 0 AND b.live_seconds >= :min_live_seconds\n                   AND COALESCE(w.watch_seconds, 0) >= :min_watch_seconds THEN 1 ELSE 0 END) AS effective_live_days\n  FROM broadcast_days b JOIN streamer_profiles s ON b.streamer_id = s.streamer_id\n  JOIN dimensions d ON d.dimension = 'all' OR d.dimension = s.tier\n  LEFT JOIN watch_day w ON b.date = w.date AND b.streamer_id = w.streamer_id\n  GROUP BY period, d.dimension\n), wide AS (\n  SELECT l.period, l.dimension, COALESCE(g.gift_amount_idr, 0) AS gift_amount_idr,\n         COALESCE(w.watch_duration_hours, 0) AS watch_duration_hours,\n         l.effective_live_days, l.live_duration_hours, COALESCE(w.viewer_uv, 0) AS viewer_uv\n  FROM live l LEFT JOIN watches w ON l.period = w.period AND l.dimension = w.dimension\n  LEFT JOIN gifts g ON l.period = g.period AND l.dimension = g.dimension\n), metric_values AS (\n  SELECT period, dimension, 'gift_amount_idr' AS metric, gift_amount_idr AS value, viewer_uv FROM wide\n  UNION ALL SELECT period, dimension, 'watch_duration_hours', watch_duration_hours, viewer_uv FROM wide\n  UNION ALL SELECT period, dimension, 'effective_live_days', effective_live_days, viewer_uv FROM wide\n  UNION ALL SELECT period, dimension, 'live_duration_hours', live_duration_hours, viewer_uv FROM wide\n  UNION ALL SELECT period, dimension, 'viewer_uv', viewer_uv, viewer_uv FROM wide\n), pivoted AS (\n  SELECT dimension, metric,\n         MAX(CASE WHEN period = 'current' THEN value END) AS current,\n         MAX(CASE WHEN period = 'baseline' THEN value END) AS baseline,\n         MAX(CASE WHEN period = 'current' THEN viewer_uv END) AS current_viewer_uv,\n         MAX(CASE WHEN period = 'baseline' THEN viewer_uv END) AS baseline_viewer_uv\n  FROM metric_values GROUP BY dimension, metric\n), changes AS (\n  SELECT dimension, metric, current, baseline, current_viewer_uv, baseline_viewer_uv,\n         current - baseline AS delta,\n         CASE WHEN baseline = 0 THEN NULL ELSE (current - baseline) * 1.0 / baseline END AS relative_change\n  FROM pivoted\n)\nSELECT dimension, metric, current, baseline, delta, relative_change, current_viewer_uv, baseline_viewer_uv,\n       CASE WHEN baseline = 0 OR current_viewer_uv < :min_viewers OR baseline_viewer_uv < :min_viewers THEN NULL\n            WHEN relative_change <= -:drop_threshold THEN 1 ELSE 0 END AS is_anomaly,\n       CASE WHEN baseline = 0 THEN 'zero_baseline'\n            WHEN current_viewer_uv < :min_viewers OR baseline_viewer_uv < :min_viewers THEN 'small_sample'\n            ELSE 'ok' END AS status\nFROM changes ORDER BY dimension, metric\n"
+      },
+      {
+        "result_kind": "table",
+        "window": "current",
+        "filters": {
+          "streamer_tier": "tail"
+        },
+        "label": "尾部主播观看表现下钻",
+        "only_if_alerts": true,
+        "sql": "-- 示例Agent在层级提醒后选择的补充聚合查询；按计划范围进一步筛选尾部主播。\nSELECT w.streamer_id, s.tier AS streamer_tier,\n       COUNT(DISTINCT w.viewer_id) AS viewer_uv,\n       SUM(w.duration_seconds) / 3600.0 AS watch_duration_hours\nFROM watch_events w JOIN streamer_profiles s ON w.streamer_id = s.streamer_id\nGROUP BY w.streamer_id, s.tier\nORDER BY watch_duration_hours DESC, w.streamer_id\n"
+      }
+    ],
+    "knowledge_id": "5547cd0902d94fe370a5d92f33a031d6a5b71bbfffd32c798954fb579d2a5518",
+    "snapshot_id": "0cec2dce7448a98137559f8cb6485a47d85baa016d7ebeea7ee0824991f8dbae"
+  }
+}

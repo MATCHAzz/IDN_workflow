@@ -1,0 +1,18 @@
+{
+  "title": "周报更新",
+  "run_id": "sql-weekly-demo",
+  "date_range": [
+    "2026-10-11",
+    "2026-10-17"
+  ],
+  "artifacts": {
+    "md": "/Users/matchalee/Desktop/IDN Workflow/outputs/runs/sql-weekly-demo/report-6a6ccf5f1767/report.md",
+    "json": "/Users/matchalee/Desktop/IDN Workflow/outputs/runs/sql-weekly-demo/report-6a6ccf5f1767/report.json",
+    "html": "/Users/matchalee/Desktop/IDN Workflow/outputs/runs/sql-weekly-demo/report-6a6ccf5f1767/report.html"
+  },
+  "status": "draft_not_sent",
+  "destination": null,
+  "scheduled_at": null,
+  "analysis_mode": "agent_generated_sql",
+  "knowledge_id": "5547cd0902d94fe370a5d92f33a031d6a5b71bbfffd32c798954fb579d2a5518"
+}

@@ -1,0 +1,26 @@
+{
+  "workflow": "campaign_review",
+  "campaign_id": "idn-oct-mission",
+  "queries": [
+    {
+      "sql_file": "../../knowledge/sql_examples/period_metrics.sql",
+      "result_kind": "metrics",
+      "window": "current",
+      "label": "活动名单本期指标"
+    },
+    {
+      "sql_file": "../../knowledge/sql_examples/period_comparison.sql",
+      "result_kind": "comparison",
+      "window": "comparison",
+      "label": "同名单活动前后对比"
+    }
+  ],
+  "notes": {
+    "observations": [
+      "活动期与活动前等长窗口保持同一主播名单，按共享口径比较。"
+    ],
+    "hypotheses": [
+      "前后差异可能同时包含流量和开播供给变化，不能作为活动因果收益。"
+    ]
+  }
+}

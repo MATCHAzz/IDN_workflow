@@ -1,0 +1,18 @@
+{
+  "title": "主播流量助推更新",
+  "run_id": "operations-boost-demo",
+  "status": "draft_not_sent",
+  "date_range": [
+    "2026-10-11",
+    "2026-10-17"
+  ],
+  "artifacts": {
+    "md": "/Users/matchalee/Desktop/IDN Workflow/outputs/runs/operations-boost-demo/report-f744d7497dc9/report.md",
+    "json": "/Users/matchalee/Desktop/IDN Workflow/outputs/runs/operations-boost-demo/report-f744d7497dc9/report.json",
+    "html": "/Users/matchalee/Desktop/IDN Workflow/outputs/runs/operations-boost-demo/report-f744d7497dc9/report.html",
+    "csv": "/Users/matchalee/Desktop/IDN Workflow/outputs/runs/operations-boost-demo/report-f744d7497dc9/traffic_boost_candidates.csv"
+  },
+  "destination": null,
+  "scheduled_at": null,
+  "note": "本地待推送包。内部系统连接、推送渠道和执行时间尚未配置，不会自动外发。"
+}

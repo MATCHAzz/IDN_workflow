@@ -1,0 +1,71 @@
+{
+  "run_id": "demo-payment-20261015",
+  "evidence_id": "e0002",
+  "tool": "get_metric_dictionary",
+  "arguments": {},
+  "status": "ok",
+  "metric_version": "liveops-v1",
+  "rule_version": "demo-rules-v1",
+  "timezone": "Asia/Jakarta",
+  "synthetic": true,
+  "executed_at": "2026-10-18T06:33:29.225343+00:00",
+  "warnings": [],
+  "query_ids": [
+    "q-2c4dfc4b15786e20"
+  ],
+  "skill": "business-kpi-analysis",
+  "snapshot_id": "1093b21f6545f248b90bedf95de6511831563cc087adaf443099115d9c21ea82",
+  "data_as_of": "2026-10-17T23:59:59+07:00",
+  "result": {
+    "metric_version": "liveops-v1",
+    "rule_version": "demo-rules-v1",
+    "timezone": "Asia/Jakarta",
+    "metrics": {
+      "gross_gmv_idr": {
+        "definition": "成功交易金额合计",
+        "unit": "IDR"
+      },
+      "suspicious_gmv_idr": {
+        "definition": "当日命中风险规则用户的成功交易额；待复核",
+        "unit": "IDR"
+      },
+      "trusted_gmv_idr": {
+        "definition": "Gross GMV 减 Suspicious GMV；演示分析口径，非结算额",
+        "unit": "IDR"
+      },
+      "active_uv": {
+        "definition": "观看会话去重用户数",
+        "unit": "users"
+      },
+      "paying_uv": {
+        "definition": "成功交易去重用户数",
+        "unit": "users"
+      },
+      "payer_conversion": {
+        "definition": "paying_uv / active_uv；质量门禁检查付费用户有当日观看",
+        "unit": "ratio"
+      },
+      "payment_success_rate": {
+        "definition": "成功支付尝试数 / 支付尝试总数",
+        "unit": "ratio"
+      },
+      "arppu_idr": {
+        "definition": "成功交易金额 / paying_uv",
+        "unit": "IDR/user"
+      }
+    },
+    "risk_rule": "同一天同设备 >=3 位成功付费用户，且该用户成功交易 >=5 笔、金额 >=2,000,000 IDR。只代表规则命中。",
+    "anomaly_rule": "prior_7d_median，不含当天，必须有完整7天；支付成功率下降>=10个百分点，其他指标相对变化绝对值>=30%；零基线不算相对变化。"
+  },
+  "queries": [
+    {
+      "query_id": "q-2c4dfc4b15786e20",
+      "template": "metadata",
+      "sql": "SELECT key,value FROM metadata",
+      "parameters": {},
+      "elapsed_ms": 0.115
+    }
+  ],
+  "elapsed_ms": 2.176,
+  "artifact_path": "/Users/matchalee/Desktop/IDN Workflow/outputs/runs/demo-payment-20261015/e0002.json"
+}

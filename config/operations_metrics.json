@@ -1,0 +1,20 @@
+{
+  "version": "operations-v2",
+  "timezone": "Asia/Jakarta",
+  "effective_live_day": {
+    "min_live_seconds": 3600,
+    "min_watch_seconds": 1800,
+    "note": "Demo默认：单主播单日直播至少1小时，累计被观看至少30分钟；待替换为实际业务口径。"
+  },
+  "monitoring": {
+    "relative_drop_threshold": 0.2,
+    "minimum_viewers_for_alert": 30,
+    "note": "同长度上一窗口对比；下降至少20%且两期观看UV均不少于30时提醒；非统计检验。"
+  },
+  "traffic_boost": {
+    "min_effective_days_7d": 3,
+    "min_viewer_uv_7d": 30,
+    "suggested_units_per_streamer": 500,
+    "note": "仅生成待审核的助推更新建议；不是实际下发流量，也不是收益预测。"
+  }
+}

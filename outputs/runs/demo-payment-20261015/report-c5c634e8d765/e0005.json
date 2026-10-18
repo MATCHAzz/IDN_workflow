@@ -1,0 +1,437 @@
+{
+  "run_id": "demo-payment-20261015",
+  "evidence_id": "e0005",
+  "tool": "detect_anomalies",
+  "arguments": {
+    "date": "2026-10-15",
+    "metrics": [
+      "active_uv",
+      "payer_conversion",
+      "payment_success_rate",
+      "gross_gmv_idr"
+    ]
+  },
+  "status": "ok",
+  "metric_version": "liveops-v1",
+  "rule_version": "demo-rules-v1",
+  "timezone": "Asia/Jakarta",
+  "synthetic": true,
+  "executed_at": "2026-10-18T06:33:36.334556+00:00",
+  "warnings": [],
+  "query_ids": [
+    "q-2c4dfc4b15786e20",
+    "q-51fb538bd582945f",
+    "q-1666b3e2370c8b29",
+    "q-572c3bdb3257f94e",
+    "q-bbf96a7cceba946c",
+    "q-f85b0ae52027c4e3",
+    "q-60ccab1988d0920c",
+    "q-c9512f741d9c618a",
+    "q-daac359a5f9a203e",
+    "q-ee38adb2ff0ed7c6",
+    "q-6c1eaf0d2672e31b",
+    "q-02991d4632b385c9",
+    "q-66e7710c5045fc6f",
+    "q-4e2c2a4af52a6e23",
+    "q-509379b492684985",
+    "q-6392ed79b2340321",
+    "q-405a5267bc81982e",
+    "q-85ec192a5b4d782d",
+    "q-e5882d13e7f72e0a",
+    "q-d40444766662438b",
+    "q-f1ca314acc6ae0ea",
+    "q-e6eab6261a8ef93b",
+    "q-216ff09b1f852ddc",
+    "q-c59562124e68dbb9",
+    "q-3a40db1b68cc7009",
+    "q-69560a4072d373b4",
+    "q-020d10321fbc5210",
+    "q-09807395ef5f9562",
+    "q-feb5d505e6b8f6bd",
+    "q-ddd4c36339e3fd6a",
+    "q-f3c4aef9579f1f88"
+  ],
+  "skill": "anomaly-monitoring",
+  "snapshot_id": "1093b21f6545f248b90bedf95de6511831563cc087adaf443099115d9c21ea82",
+  "data_as_of": "2026-10-17T23:59:59+07:00",
+  "result": {
+    "date": "2026-10-15",
+    "filters": {},
+    "comparisons": [
+      {
+        "date": "2026-10-15",
+        "dimension": "all",
+        "metric": "active_uv",
+        "method": "prior_7d_median",
+        "baseline_dates": [
+          "2026-10-08",
+          "2026-10-09",
+          "2026-10-10",
+          "2026-10-11",
+          "2026-10-12",
+          "2026-10-13",
+          "2026-10-14"
+        ],
+        "baseline_samples": 7,
+        "current": 1750,
+        "status": "ok",
+        "baseline": 1356,
+        "delta": 394,
+        "relative_change": 0.29056047197640117,
+        "delta_pp": null,
+        "is_anomaly": false
+      },
+      {
+        "date": "2026-10-15",
+        "dimension": "all",
+        "metric": "payer_conversion",
+        "method": "prior_7d_median",
+        "baseline_dates": [
+          "2026-10-08",
+          "2026-10-09",
+          "2026-10-10",
+          "2026-10-11",
+          "2026-10-12",
+          "2026-10-13",
+          "2026-10-14"
+        ],
+        "baseline_samples": 7,
+        "current": 0.07657142857142857,
+        "status": "ok",
+        "baseline": 0.11541381928625664,
+        "delta": -0.038842390714828076,
+        "relative_change": -0.33654887218045115,
+        "delta_pp": -3.8842390714828077,
+        "is_anomaly": true
+      },
+      {
+        "date": "2026-10-15",
+        "dimension": "all",
+        "metric": "payment_success_rate",
+        "method": "prior_7d_median",
+        "baseline_dates": [
+          "2026-10-08",
+          "2026-10-09",
+          "2026-10-10",
+          "2026-10-11",
+          "2026-10-12",
+          "2026-10-13",
+          "2026-10-14"
+        ],
+        "baseline_samples": 7,
+        "current": 0.4722222222222222,
+        "status": "ok",
+        "baseline": 0.9423631123919308,
+        "delta": -0.4701408901697086,
+        "relative_change": -0.4988956846755012,
+        "delta_pp": -47.014089016970864,
+        "is_anomaly": true
+      },
+      {
+        "date": "2026-10-15",
+        "dimension": "all",
+        "metric": "gross_gmv_idr",
+        "method": "prior_7d_median",
+        "baseline_dates": [
+          "2026-10-08",
+          "2026-10-09",
+          "2026-10-10",
+          "2026-10-11",
+          "2026-10-12",
+          "2026-10-13",
+          "2026-10-14"
+        ],
+        "baseline_samples": 7,
+        "current": 8900000,
+        "status": "ok",
+        "baseline": 12330000,
+        "delta": -3430000,
+        "relative_change": -0.2781832927818329,
+        "delta_pp": null,
+        "is_anomaly": false
+      }
+    ],
+    "anomalies": [
+      {
+        "date": "2026-10-15",
+        "dimension": "all",
+        "metric": "payer_conversion",
+        "method": "prior_7d_median",
+        "baseline_dates": [
+          "2026-10-08",
+          "2026-10-09",
+          "2026-10-10",
+          "2026-10-11",
+          "2026-10-12",
+          "2026-10-13",
+          "2026-10-14"
+        ],
+        "baseline_samples": 7,
+        "current": 0.07657142857142857,
+        "status": "ok",
+        "baseline": 0.11541381928625664,
+        "delta": -0.038842390714828076,
+        "relative_change": -0.33654887218045115,
+        "delta_pp": -3.8842390714828077,
+        "is_anomaly": true
+      },
+      {
+        "date": "2026-10-15",
+        "dimension": "all",
+        "metric": "payment_success_rate",
+        "method": "prior_7d_median",
+        "baseline_dates": [
+          "2026-10-08",
+          "2026-10-09",
+          "2026-10-10",
+          "2026-10-11",
+          "2026-10-12",
+          "2026-10-13",
+          "2026-10-14"
+        ],
+        "baseline_samples": 7,
+        "current": 0.4722222222222222,
+        "status": "ok",
+        "baseline": 0.9423631123919308,
+        "delta": -0.4701408901697086,
+        "relative_change": -0.4988956846755012,
+        "delta_pp": -47.014089016970864,
+        "is_anomaly": true
+      }
+    ],
+    "warnings": []
+  },
+  "queries": [
+    {
+      "query_id": "q-2c4dfc4b15786e20",
+      "template": "metadata",
+      "sql": "SELECT key,value FROM metadata",
+      "parameters": {},
+      "elapsed_ms": 0.115
+    },
+    {
+      "query_id": "q-51fb538bd582945f",
+      "template": "quality_users_duplicate_pk",
+      "sql": "SELECT COUNT(*) n FROM (SELECT user_id FROM users GROUP BY user_id HAVING COUNT(*)>1)",
+      "parameters": {},
+      "elapsed_ms": 0.34
+    },
+    {
+      "query_id": "q-1666b3e2370c8b29",
+      "template": "quality_users_null_pk",
+      "sql": "SELECT COUNT(*) n FROM users WHERE user_id IS NULL",
+      "parameters": {},
+      "elapsed_ms": 0.014
+    },
+    {
+      "query_id": "q-572c3bdb3257f94e",
+      "template": "quality_streamers_duplicate_pk",
+      "sql": "SELECT COUNT(*) n FROM (SELECT streamer_id FROM streamers GROUP BY streamer_id HAVING COUNT(*)>1)",
+      "parameters": {},
+      "elapsed_ms": 0.022
+    },
+    {
+      "query_id": "q-bbf96a7cceba946c",
+      "template": "quality_streamers_null_pk",
+      "sql": "SELECT COUNT(*) n FROM streamers WHERE streamer_id IS NULL",
+      "parameters": {},
+      "elapsed_ms": 0.01
+    },
+    {
+      "query_id": "q-f85b0ae52027c4e3",
+      "template": "quality_view_sessions_duplicate_pk",
+      "sql": "SELECT COUNT(*) n FROM (SELECT session_id FROM view_sessions GROUP BY session_id HAVING COUNT(*)>1)",
+      "parameters": {},
+      "elapsed_ms": 3.079
+    },
+    {
+      "query_id": "q-60ccab1988d0920c",
+      "template": "quality_view_sessions_null_pk",
+      "sql": "SELECT COUNT(*) n FROM view_sessions WHERE session_id IS NULL",
+      "parameters": {},
+      "elapsed_ms": 0.028
+    },
+    {
+      "query_id": "q-c9512f741d9c618a",
+      "template": "quality_payment_attempts_duplicate_pk",
+      "sql": "SELECT COUNT(*) n FROM (SELECT attempt_id FROM payment_attempts GROUP BY attempt_id HAVING COUNT(*)>1)",
+      "parameters": {},
+      "elapsed_ms": 0.684
+    },
+    {
+      "query_id": "q-daac359a5f9a203e",
+      "template": "quality_payment_attempts_null_pk",
+      "sql": "SELECT COUNT(*) n FROM payment_attempts WHERE attempt_id IS NULL",
+      "parameters": {},
+      "elapsed_ms": 0.014
+    },
+    {
+      "query_id": "q-ee38adb2ff0ed7c6",
+      "template": "quality_transactions_duplicate_pk",
+      "sql": "SELECT COUNT(*) n FROM (SELECT transaction_id FROM transactions GROUP BY transaction_id HAVING COUNT(*)>1)",
+      "parameters": {},
+      "elapsed_ms": 0.614
+    },
+    {
+      "query_id": "q-6c1eaf0d2672e31b",
+      "template": "quality_transactions_null_pk",
+      "sql": "SELECT COUNT(*) n FROM transactions WHERE transaction_id IS NULL",
+      "parameters": {},
+      "elapsed_ms": 0.012
+    },
+    {
+      "query_id": "q-02991d4632b385c9",
+      "template": "quality_view_sessions_orphan",
+      "sql": "SELECT COUNT(*) n FROM view_sessions t\n              LEFT JOIN users u ON t.user_id=u.user_id LEFT JOIN streamers s ON t.streamer_id=s.streamer_id\n              WHERE u.user_id IS NULL OR s.streamer_id IS NULL",
+      "parameters": {},
+      "elapsed_ms": 7.738
+    },
+    {
+      "query_id": "q-66e7710c5045fc6f",
+      "template": "quality_coverage_view_sessions",
+      "sql": "SELECT date,COUNT(*) n FROM view_sessions WHERE date BETWEEN :start AND :end GROUP BY date",
+      "parameters": {
+        "start": "2026-10-08",
+        "end": "2026-10-15"
+      },
+      "elapsed_ms": 0.665
+    },
+    {
+      "query_id": "q-4e2c2a4af52a6e23",
+      "template": "quality_dates_view_sessions",
+      "sql": "SELECT date FROM view_sessions GROUP BY date",
+      "parameters": {},
+      "elapsed_ms": 1.367
+    },
+    {
+      "query_id": "q-509379b492684985",
+      "template": "quality_payment_attempts_orphan",
+      "sql": "SELECT COUNT(*) n FROM payment_attempts t\n              LEFT JOIN users u ON t.user_id=u.user_id LEFT JOIN streamers s ON t.streamer_id=s.streamer_id\n              WHERE u.user_id IS NULL OR s.streamer_id IS NULL",
+      "parameters": {},
+      "elapsed_ms": 1.186
+    },
+    {
+      "query_id": "q-6392ed79b2340321",
+      "template": "quality_coverage_payment_attempts",
+      "sql": "SELECT date,COUNT(*) n FROM payment_attempts WHERE date BETWEEN :start AND :end GROUP BY date",
+      "parameters": {
+        "start": "2026-10-08",
+        "end": "2026-10-15"
+      },
+      "elapsed_ms": 0.173
+    },
+    {
+      "query_id": "q-405a5267bc81982e",
+      "template": "quality_dates_payment_attempts",
+      "sql": "SELECT date FROM payment_attempts GROUP BY date",
+      "parameters": {},
+      "elapsed_ms": 0.322
+    },
+    {
+      "query_id": "q-85ec192a5b4d782d",
+      "template": "quality_transactions_orphan",
+      "sql": "SELECT COUNT(*) n FROM transactions t\n              LEFT JOIN users u ON t.user_id=u.user_id LEFT JOIN streamers s ON t.streamer_id=s.streamer_id\n              WHERE u.user_id IS NULL OR s.streamer_id IS NULL",
+      "parameters": {},
+      "elapsed_ms": 1.174
+    },
+    {
+      "query_id": "q-e5882d13e7f72e0a",
+      "template": "quality_coverage_transactions",
+      "sql": "SELECT date,COUNT(*) n FROM transactions WHERE date BETWEEN :start AND :end GROUP BY date",
+      "parameters": {
+        "start": "2026-10-08",
+        "end": "2026-10-15"
+      },
+      "elapsed_ms": 0.167
+    },
+    {
+      "query_id": "q-d40444766662438b",
+      "template": "quality_dates_transactions",
+      "sql": "SELECT date FROM transactions GROUP BY date",
+      "parameters": {},
+      "elapsed_ms": 0.306
+    },
+    {
+      "query_id": "q-f1ca314acc6ae0ea",
+      "template": "quality_transaction_attempt_unique",
+      "sql": "SELECT COUNT(*) n FROM (SELECT attempt_id FROM transactions GROUP BY attempt_id HAVING COUNT(*)>1)",
+      "parameters": {},
+      "elapsed_ms": 0.634
+    },
+    {
+      "query_id": "q-e6eab6261a8ef93b",
+      "template": "quality_transaction_reconciliation",
+      "sql": "SELECT COUNT(*) n FROM transactions t LEFT JOIN payment_attempts a ON t.attempt_id=a.attempt_id\n        WHERE a.attempt_id IS NULL OR a.status!='success' OR t.date!=a.date OR t.user_id!=a.user_id\n        OR t.streamer_id!=a.streamer_id OR t.amount_idr!=a.amount_idr",
+      "parameters": {},
+      "elapsed_ms": 1.231
+    },
+    {
+      "query_id": "q-216ff09b1f852ddc",
+      "template": "quality_missing_successful_transaction",
+      "sql": "SELECT COUNT(*) n FROM payment_attempts a LEFT JOIN transactions t ON a.attempt_id=t.attempt_id\n        WHERE a.status='success' AND t.transaction_id IS NULL",
+      "parameters": {},
+      "elapsed_ms": 1.237
+    },
+    {
+      "query_id": "q-c59562124e68dbb9",
+      "template": "quality_payer_viewer_membership",
+      "sql": "SELECT COUNT(*) n FROM transactions t WHERE NOT EXISTS\n        (SELECT 1 FROM view_sessions v WHERE v.date=t.date AND v.user_id=t.user_id AND v.streamer_id=t.streamer_id)",
+      "parameters": {},
+      "elapsed_ms": 325.12
+    },
+    {
+      "query_id": "q-3a40db1b68cc7009",
+      "template": "quality_payment_attempts_positive_integer_amount",
+      "sql": "SELECT COUNT(*) n FROM payment_attempts WHERE amount_idr IS NULL OR typeof(amount_idr)!='integer' OR amount_idr<=0",
+      "parameters": {},
+      "elapsed_ms": 0.672
+    },
+    {
+      "query_id": "q-69560a4072d373b4",
+      "template": "quality_transactions_positive_integer_amount",
+      "sql": "SELECT COUNT(*) n FROM transactions WHERE amount_idr IS NULL OR typeof(amount_idr)!='integer' OR amount_idr<=0",
+      "parameters": {},
+      "elapsed_ms": 0.505
+    },
+    {
+      "query_id": "q-020d10321fbc5210",
+      "template": "quality_attempt_status",
+      "sql": "SELECT COUNT(*) n FROM payment_attempts WHERE status IS NULL OR status NOT IN ('success','failed')",
+      "parameters": {},
+      "elapsed_ms": 0.438
+    },
+    {
+      "query_id": "q-09807395ef5f9562",
+      "template": "quality_user_dimensions",
+      "sql": "SELECT COUNT(*) n FROM users WHERE platform IS NULL OR platform NOT IN ('Android','iOS') OR channel IS NULL OR channel NOT IN ('organic','ads','referral') OR device_id IS NULL OR length(device_id)=0",
+      "parameters": {},
+      "elapsed_ms": 0.723
+    },
+    {
+      "query_id": "q-feb5d505e6b8f6bd",
+      "template": "quality_streamer_tier",
+      "sql": "SELECT COUNT(*) n FROM streamers WHERE tier IS NULL OR tier NOT IN ('head','mid','tail')",
+      "parameters": {},
+      "elapsed_ms": 0.029
+    },
+    {
+      "query_id": "q-ddd4c36339e3fd6a",
+      "template": "quality_watch_duration",
+      "sql": "SELECT COUNT(*) n FROM view_sessions WHERE duration_seconds IS NULL OR duration_seconds<0",
+      "parameters": {},
+      "elapsed_ms": 1.075
+    },
+    {
+      "query_id": "q-f3c4aef9579f1f88",
+      "template": "daily_metrics_overall",
+      "sql": "WITH \nuser_day AS (\n SELECT t.date,t.user_id,u.device_id,COUNT(*) n,SUM(t.amount_idr) gmv\n FROM transactions t JOIN users u ON u.user_id=t.user_id\n WHERE t.date BETWEEN :start AND :end GROUP BY t.date,t.user_id,u.device_id\n), device_day AS (\n SELECT date,device_id,COUNT(*) payers FROM user_day GROUP BY date,device_id\n), risk AS (\n SELECT p.date,p.user_id FROM user_day p JOIN device_day d\n ON p.date=d.date AND p.device_id=d.device_id\n WHERE p.n>=5 AND p.gmv>=2000000 AND d.payers>=3\n)\n,\n    views AS (\n      SELECT v.date,'all' dimension,COUNT(DISTINCT v.user_id) active_uv\n      FROM view_sessions v JOIN users u ON u.user_id=v.user_id JOIN streamers s ON s.streamer_id=v.streamer_id\n      WHERE v.date BETWEEN :start AND :end  GROUP BY v.date,dimension\n    ), attempts AS (\n      SELECT a.date,'all' dimension,COUNT(*) attempts,SUM(a.status='success') successes\n      FROM payment_attempts a JOIN users u ON u.user_id=a.user_id JOIN streamers s ON s.streamer_id=a.streamer_id\n      WHERE a.date BETWEEN :start AND :end  GROUP BY a.date,dimension\n    ), revenue AS (\n      SELECT t.date,'all' dimension,COUNT(DISTINCT t.user_id) paying_uv,SUM(t.amount_idr) gross_gmv_idr,\n      SUM(CASE WHEN r.user_id IS NOT NULL THEN t.amount_idr ELSE 0 END) suspicious_gmv_idr\n      FROM transactions t JOIN users u ON u.user_id=t.user_id JOIN streamers s ON s.streamer_id=t.streamer_id\n      LEFT JOIN risk r ON r.date=t.date AND r.user_id=t.user_id\n      WHERE t.date BETWEEN :start AND :end  GROUP BY t.date,dimension\n    ), keys AS (\n      SELECT date,dimension FROM views UNION SELECT date,dimension FROM attempts UNION SELECT date,dimension FROM revenue\n    ) SELECT k.date,k.dimension,COALESCE(v.active_uv,0) active_uv,COALESCE(a.attempts,0) attempts,\n      COALESCE(a.successes,0) successes,COALESCE(t.paying_uv,0) paying_uv,\n      COALESCE(t.gross_gmv_idr,0) gross_gmv_idr,COALESCE(t.suspicious_gmv_idr,0) suspicious_gmv_idr\n      FROM keys k LEFT JOIN views v ON k.date=v.date AND k.dimension=v.dimension\n      LEFT JOIN attempts a ON k.date=a.date AND k.dimension=a.dimension\n      LEFT JOIN revenue t ON k.date=t.date AND k.dimension=t.dimension ORDER BY k.date,k.dimension",
+      "parameters": {
+        "start": "2026-10-08",
+        "end": "2026-10-15"
+      },
+      "elapsed_ms": 12.573
+    }
+  ],
+  "elapsed_ms": 364.82,
+  "artifact_path": "/Users/matchalee/Desktop/IDN Workflow/outputs/runs/demo-payment-20261015/e0005.json"
+}

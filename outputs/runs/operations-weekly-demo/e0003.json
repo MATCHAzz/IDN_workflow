@@ -1,0 +1,351 @@
+{
+  "run_id": "operations-weekly-demo",
+  "evidence_id": "e0003",
+  "tool": "export_report",
+  "arguments": {
+    "date": "2026-10-17",
+    "evidence_ids": [
+      "e0002"
+    ]
+  },
+  "status": "ok",
+  "metric_version": "operations-v2",
+  "rule_version": "operations-rules-v2",
+  "timezone": "Asia/Jakarta",
+  "synthetic": true,
+  "executed_at": "2026-10-18T06:47:30.526998+00:00",
+  "warnings": [],
+  "query_ids": [
+    "q-2c4dfc4b15786e20",
+    "q-51fb538bd582945f",
+    "q-1666b3e2370c8b29",
+    "q-572c3bdb3257f94e",
+    "q-bbf96a7cceba946c",
+    "q-f85b0ae52027c4e3",
+    "q-60ccab1988d0920c",
+    "q-c9512f741d9c618a",
+    "q-daac359a5f9a203e",
+    "q-ee38adb2ff0ed7c6",
+    "q-6c1eaf0d2672e31b",
+    "q-02991d4632b385c9",
+    "q-72df961ba95f41df",
+    "q-4e2c2a4af52a6e23",
+    "q-509379b492684985",
+    "q-b7d54c6842123861",
+    "q-405a5267bc81982e",
+    "q-85ec192a5b4d782d",
+    "q-af08cc9014e95e7b",
+    "q-d40444766662438b",
+    "q-f1ca314acc6ae0ea",
+    "q-e6eab6261a8ef93b",
+    "q-216ff09b1f852ddc",
+    "q-c59562124e68dbb9",
+    "q-3a40db1b68cc7009",
+    "q-69560a4072d373b4",
+    "q-020d10321fbc5210",
+    "q-09807395ef5f9562",
+    "q-feb5d505e6b8f6bd",
+    "q-ddd4c36339e3fd6a",
+    "q-30a90e41c6045322",
+    "q-879eb4435d2d901f",
+    "q-f55247d2198f4162",
+    "q-cf700dda5e0559f1",
+    "q-66ec022dc581257c",
+    "q-2b34df5ab392d240",
+    "q-901bc61922421f84",
+    "q-2759ef9759809bad"
+  ],
+  "skill": "business-report-writing",
+  "snapshot_id": "0cec2dce7448a98137559f8cb6485a47d85baa016d7ebeea7ee0824991f8dbae",
+  "data_as_of": "2026-10-17T23:59:59+07:00",
+  "config_id": "c03846ac582c",
+  "result": {
+    "report_id": "report-537687574b62",
+    "human_approved": false,
+    "validation": "引用存在、快照/日期一致；数字从工具结果渲染。定性判断需人工审阅。",
+    "paths": {
+      "md": "/Users/matchalee/Desktop/IDN Workflow/outputs/runs/operations-weekly-demo/report-537687574b62/report.md",
+      "json": "/Users/matchalee/Desktop/IDN Workflow/outputs/runs/operations-weekly-demo/report-537687574b62/report.json",
+      "html": "/Users/matchalee/Desktop/IDN Workflow/outputs/runs/operations-weekly-demo/report-537687574b62/report.html"
+    }
+  },
+  "queries": [
+    {
+      "query_id": "q-2c4dfc4b15786e20",
+      "template": "metadata",
+      "sql": "SELECT key,value FROM metadata",
+      "parameters": {},
+      "elapsed_ms": 0.086
+    },
+    {
+      "query_id": "q-51fb538bd582945f",
+      "template": "quality_users_duplicate_pk",
+      "sql": "SELECT COUNT(*) n FROM (SELECT user_id FROM users GROUP BY user_id HAVING COUNT(*)>1)",
+      "parameters": {},
+      "elapsed_ms": 0.337
+    },
+    {
+      "query_id": "q-1666b3e2370c8b29",
+      "template": "quality_users_null_pk",
+      "sql": "SELECT COUNT(*) n FROM users WHERE user_id IS NULL",
+      "parameters": {},
+      "elapsed_ms": 0.012
+    },
+    {
+      "query_id": "q-572c3bdb3257f94e",
+      "template": "quality_streamers_duplicate_pk",
+      "sql": "SELECT COUNT(*) n FROM (SELECT streamer_id FROM streamers GROUP BY streamer_id HAVING COUNT(*)>1)",
+      "parameters": {},
+      "elapsed_ms": 0.019
+    },
+    {
+      "query_id": "q-bbf96a7cceba946c",
+      "template": "quality_streamers_null_pk",
+      "sql": "SELECT COUNT(*) n FROM streamers WHERE streamer_id IS NULL",
+      "parameters": {},
+      "elapsed_ms": 0.01
+    },
+    {
+      "query_id": "q-f85b0ae52027c4e3",
+      "template": "quality_view_sessions_duplicate_pk",
+      "sql": "SELECT COUNT(*) n FROM (SELECT session_id FROM view_sessions GROUP BY session_id HAVING COUNT(*)>1)",
+      "parameters": {},
+      "elapsed_ms": 3.387
+    },
+    {
+      "query_id": "q-60ccab1988d0920c",
+      "template": "quality_view_sessions_null_pk",
+      "sql": "SELECT COUNT(*) n FROM view_sessions WHERE session_id IS NULL",
+      "parameters": {},
+      "elapsed_ms": 0.013
+    },
+    {
+      "query_id": "q-c9512f741d9c618a",
+      "template": "quality_payment_attempts_duplicate_pk",
+      "sql": "SELECT COUNT(*) n FROM (SELECT attempt_id FROM payment_attempts GROUP BY attempt_id HAVING COUNT(*)>1)",
+      "parameters": {},
+      "elapsed_ms": 0.387
+    },
+    {
+      "query_id": "q-daac359a5f9a203e",
+      "template": "quality_payment_attempts_null_pk",
+      "sql": "SELECT COUNT(*) n FROM payment_attempts WHERE attempt_id IS NULL",
+      "parameters": {},
+      "elapsed_ms": 0.01
+    },
+    {
+      "query_id": "q-ee38adb2ff0ed7c6",
+      "template": "quality_transactions_duplicate_pk",
+      "sql": "SELECT COUNT(*) n FROM (SELECT transaction_id FROM transactions GROUP BY transaction_id HAVING COUNT(*)>1)",
+      "parameters": {},
+      "elapsed_ms": 0.359
+    },
+    {
+      "query_id": "q-6c1eaf0d2672e31b",
+      "template": "quality_transactions_null_pk",
+      "sql": "SELECT COUNT(*) n FROM transactions WHERE transaction_id IS NULL",
+      "parameters": {},
+      "elapsed_ms": 0.01
+    },
+    {
+      "query_id": "q-02991d4632b385c9",
+      "template": "quality_view_sessions_orphan",
+      "sql": "SELECT COUNT(*) n FROM view_sessions t\n              LEFT JOIN users u ON t.user_id=u.user_id LEFT JOIN streamers s ON t.streamer_id=s.streamer_id\n              WHERE u.user_id IS NULL OR s.streamer_id IS NULL",
+      "parameters": {},
+      "elapsed_ms": 7.137
+    },
+    {
+      "query_id": "q-72df961ba95f41df",
+      "template": "quality_coverage_view_sessions",
+      "sql": "SELECT date,COUNT(*) n FROM view_sessions WHERE date BETWEEN :start AND :end GROUP BY date",
+      "parameters": {
+        "start": "2026-10-17",
+        "end": "2026-10-17"
+      },
+      "elapsed_ms": 0.08
+    },
+    {
+      "query_id": "q-4e2c2a4af52a6e23",
+      "template": "quality_dates_view_sessions",
+      "sql": "SELECT date FROM view_sessions GROUP BY date",
+      "parameters": {},
+      "elapsed_ms": 1.632
+    },
+    {
+      "query_id": "q-509379b492684985",
+      "template": "quality_payment_attempts_orphan",
+      "sql": "SELECT COUNT(*) n FROM payment_attempts t\n              LEFT JOIN users u ON t.user_id=u.user_id LEFT JOIN streamers s ON t.streamer_id=s.streamer_id\n              WHERE u.user_id IS NULL OR s.streamer_id IS NULL",
+      "parameters": {},
+      "elapsed_ms": 1.056
+    },
+    {
+      "query_id": "q-b7d54c6842123861",
+      "template": "quality_coverage_payment_attempts",
+      "sql": "SELECT date,COUNT(*) n FROM payment_attempts WHERE date BETWEEN :start AND :end GROUP BY date",
+      "parameters": {
+        "start": "2026-10-17",
+        "end": "2026-10-17"
+      },
+      "elapsed_ms": 0.023
+    },
+    {
+      "query_id": "q-405a5267bc81982e",
+      "template": "quality_dates_payment_attempts",
+      "sql": "SELECT date FROM payment_attempts GROUP BY date",
+      "parameters": {},
+      "elapsed_ms": 0.208
+    },
+    {
+      "query_id": "q-85ec192a5b4d782d",
+      "template": "quality_transactions_orphan",
+      "sql": "SELECT COUNT(*) n FROM transactions t\n              LEFT JOIN users u ON t.user_id=u.user_id LEFT JOIN streamers s ON t.streamer_id=s.streamer_id\n              WHERE u.user_id IS NULL OR s.streamer_id IS NULL",
+      "parameters": {},
+      "elapsed_ms": 1.003
+    },
+    {
+      "query_id": "q-af08cc9014e95e7b",
+      "template": "quality_coverage_transactions",
+      "sql": "SELECT date,COUNT(*) n FROM transactions WHERE date BETWEEN :start AND :end GROUP BY date",
+      "parameters": {
+        "start": "2026-10-17",
+        "end": "2026-10-17"
+      },
+      "elapsed_ms": 0.022
+    },
+    {
+      "query_id": "q-d40444766662438b",
+      "template": "quality_dates_transactions",
+      "sql": "SELECT date FROM transactions GROUP BY date",
+      "parameters": {},
+      "elapsed_ms": 0.202
+    },
+    {
+      "query_id": "q-f1ca314acc6ae0ea",
+      "template": "quality_transaction_attempt_unique",
+      "sql": "SELECT COUNT(*) n FROM (SELECT attempt_id FROM transactions GROUP BY attempt_id HAVING COUNT(*)>1)",
+      "parameters": {},
+      "elapsed_ms": 0.357
+    },
+    {
+      "query_id": "q-e6eab6261a8ef93b",
+      "template": "quality_transaction_reconciliation",
+      "sql": "SELECT COUNT(*) n FROM transactions t LEFT JOIN payment_attempts a ON t.attempt_id=a.attempt_id\n        WHERE a.attempt_id IS NULL OR a.status!='success' OR t.date!=a.date OR t.user_id!=a.user_id\n        OR t.streamer_id!=a.streamer_id OR t.amount_idr!=a.amount_idr",
+      "parameters": {},
+      "elapsed_ms": 0.722
+    },
+    {
+      "query_id": "q-216ff09b1f852ddc",
+      "template": "quality_missing_successful_transaction",
+      "sql": "SELECT COUNT(*) n FROM payment_attempts a LEFT JOIN transactions t ON a.attempt_id=t.attempt_id\n        WHERE a.status='success' AND t.transaction_id IS NULL",
+      "parameters": {},
+      "elapsed_ms": 0.728
+    },
+    {
+      "query_id": "q-c59562124e68dbb9",
+      "template": "quality_payer_viewer_membership",
+      "sql": "SELECT COUNT(*) n FROM transactions t WHERE NOT EXISTS\n        (SELECT 1 FROM view_sessions v WHERE v.date=t.date AND v.user_id=t.user_id AND v.streamer_id=t.streamer_id)",
+      "parameters": {},
+      "elapsed_ms": 1.737
+    },
+    {
+      "query_id": "q-3a40db1b68cc7009",
+      "template": "quality_payment_attempts_positive_integer_amount",
+      "sql": "SELECT COUNT(*) n FROM payment_attempts WHERE amount_idr IS NULL OR typeof(amount_idr)!='integer' OR amount_idr<=0",
+      "parameters": {},
+      "elapsed_ms": 0.29
+    },
+    {
+      "query_id": "q-69560a4072d373b4",
+      "template": "quality_transactions_positive_integer_amount",
+      "sql": "SELECT COUNT(*) n FROM transactions WHERE amount_idr IS NULL OR typeof(amount_idr)!='integer' OR amount_idr<=0",
+      "parameters": {},
+      "elapsed_ms": 0.407
+    },
+    {
+      "query_id": "q-020d10321fbc5210",
+      "template": "quality_attempt_status",
+      "sql": "SELECT COUNT(*) n FROM payment_attempts WHERE status IS NULL OR status NOT IN ('success','failed')",
+      "parameters": {},
+      "elapsed_ms": 0.323
+    },
+    {
+      "query_id": "q-09807395ef5f9562",
+      "template": "quality_user_dimensions",
+      "sql": "SELECT COUNT(*) n FROM users WHERE platform IS NULL OR platform NOT IN ('Android','iOS') OR channel IS NULL OR channel NOT IN ('organic','ads','referral') OR device_id IS NULL OR length(device_id)=0",
+      "parameters": {},
+      "elapsed_ms": 0.66
+    },
+    {
+      "query_id": "q-feb5d505e6b8f6bd",
+      "template": "quality_streamer_tier",
+      "sql": "SELECT COUNT(*) n FROM streamers WHERE tier IS NULL OR tier NOT IN ('head','mid','tail')",
+      "parameters": {},
+      "elapsed_ms": 0.025
+    },
+    {
+      "query_id": "q-ddd4c36339e3fd6a",
+      "template": "quality_watch_duration",
+      "sql": "SELECT COUNT(*) n FROM view_sessions WHERE duration_seconds IS NULL OR duration_seconds<0",
+      "parameters": {},
+      "elapsed_ms": 1.417
+    },
+    {
+      "query_id": "q-30a90e41c6045322",
+      "template": "operations_quality_broadcast_identity",
+      "sql": "SELECT COUNT(*) n FROM (SELECT date,streamer_id FROM streamer_daily GROUP BY date,streamer_id HAVING COUNT(*)>1)",
+      "parameters": {},
+      "elapsed_ms": 0.67
+    },
+    {
+      "query_id": "q-879eb4435d2d901f",
+      "template": "operations_quality_broadcast_integrity",
+      "sql": "SELECT COUNT(*) n FROM streamer_daily b LEFT JOIN streamers s ON b.streamer_id=s.streamer_id WHERE s.streamer_id IS NULL OR b.date IS NULL OR b.live_seconds IS NULL OR typeof(b.live_seconds)!='integer' OR b.live_seconds<0",
+      "parameters": {},
+      "elapsed_ms": 0.505
+    },
+    {
+      "query_id": "q-f55247d2198f4162",
+      "template": "operations_quality_watch_live_membership",
+      "sql": "SELECT COUNT(*) n FROM view_sessions v LEFT JOIN streamer_daily b ON v.date=b.date AND v.streamer_id=b.streamer_id WHERE b.streamer_id IS NULL OR b.live_seconds<=0 OR v.duration_seconds>b.live_seconds",
+      "parameters": {},
+      "elapsed_ms": 15.746
+    },
+    {
+      "query_id": "q-cf700dda5e0559f1",
+      "template": "operations_quality_boost_integrity",
+      "sql": "SELECT COUNT(*) n FROM traffic_boost_daily b LEFT JOIN streamers s ON b.streamer_id=s.streamer_id WHERE s.streamer_id IS NULL OR b.allocated_units IS NULL OR typeof(b.allocated_units)!='integer' OR b.allocated_units<0 OR b.date IS NULL",
+      "parameters": {},
+      "elapsed_ms": 0.539
+    },
+    {
+      "query_id": "q-66ec022dc581257c",
+      "template": "operations_quality_campaign_cohort",
+      "sql": "SELECT COUNT(*) n FROM campaign_streamers c LEFT JOIN streamers s ON c.streamer_id=s.streamer_id LEFT JOIN campaigns p ON p.campaign_id=c.campaign_id WHERE s.streamer_id IS NULL OR p.campaign_id IS NULL",
+      "parameters": {},
+      "elapsed_ms": 0.068
+    },
+    {
+      "query_id": "q-2b34df5ab392d240",
+      "template": "operations_expected_streamers",
+      "sql": "SELECT COUNT(*) n FROM streamers",
+      "parameters": {},
+      "elapsed_ms": 0.014
+    },
+    {
+      "query_id": "q-901bc61922421f84",
+      "template": "operations_coverage_streamer_daily",
+      "sql": "SELECT date,COUNT(*) n,COUNT(DISTINCT streamer_id) uv FROM streamer_daily GROUP BY date",
+      "parameters": {},
+      "elapsed_ms": 0.318
+    },
+    {
+      "query_id": "q-2759ef9759809bad",
+      "template": "operations_coverage_traffic_boost_daily",
+      "sql": "SELECT date,COUNT(*) n,COUNT(DISTINCT streamer_id) uv FROM traffic_boost_daily GROUP BY date",
+      "parameters": {},
+      "elapsed_ms": 0.328
+    }
+  ],
+  "elapsed_ms": 44.426,
+  "artifact_path": "/Users/matchalee/Desktop/IDN Workflow/outputs/runs/operations-weekly-demo/e0003.json"
+}

@@ -1,0 +1,19 @@
+{
+  "run_id": "sql-campaign-demo",
+  "status": "completed",
+  "human_approved": false,
+  "request": {
+    "workflow": "campaign_review",
+    "snapshot_id": "0cec2dce7448a98137559f8cb6485a47d85baa016d7ebeea7ee0824991f8dbae",
+    "knowledge_id": "5547cd0902d94fe370a5d92f33a031d6a5b71bbfffd32c798954fb579d2a5518"
+  },
+  "analysis_mode": "agent_generated_sql",
+  "analysis_evidence_id": "e0006",
+  "report_evidence_id": "e0007",
+  "report_paths": {
+    "md": "/Users/matchalee/Desktop/IDN Workflow/outputs/runs/sql-campaign-demo/report-06148b3f2e60/report.md",
+    "json": "/Users/matchalee/Desktop/IDN Workflow/outputs/runs/sql-campaign-demo/report-06148b3f2e60/report.json",
+    "html": "/Users/matchalee/Desktop/IDN Workflow/outputs/runs/sql-campaign-demo/report-06148b3f2e60/report.html"
+  },
+  "delivery_draft": "/Users/matchalee/Desktop/IDN Workflow/outputs/runs/sql-campaign-demo/delivery_draft.json"
+}

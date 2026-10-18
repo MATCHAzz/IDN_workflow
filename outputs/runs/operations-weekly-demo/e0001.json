@@ -1,0 +1,133 @@
+{
+  "run_id": "operations-weekly-demo",
+  "evidence_id": "e0001",
+  "tool": "get_data_profile",
+  "arguments": {},
+  "status": "ok",
+  "metric_version": "operations-v2",
+  "rule_version": "operations-rules-v2",
+  "timezone": "Asia/Jakarta",
+  "synthetic": true,
+  "executed_at": "2026-10-18T06:47:30.316450+00:00",
+  "warnings": [
+    "仅合成数据，内部数据系统连接尚未配置。"
+  ],
+  "query_ids": [
+    "q-2c4dfc4b15786e20",
+    "q-27b82e3c1dba10c9",
+    "q-efb7cfe4fa436f3d",
+    "q-9ac1df8944820b61",
+    "q-afc414d16e0f0ee9",
+    "q-bf3e703c31c759c9",
+    "q-4d8798ae01e81380",
+    "q-fb044edd37eb1c1e",
+    "q-72504987c50d47cd"
+  ],
+  "skill": "data-quality-check",
+  "snapshot_id": "0cec2dce7448a98137559f8cb6485a47d85baa016d7ebeea7ee0824991f8dbae",
+  "data_as_of": "2026-10-17T23:59:59+07:00",
+  "config_id": "c03846ac582c",
+  "result": {
+    "date_range": [
+      "2026-09-01",
+      "2026-10-17"
+    ],
+    "row_counts": {
+      "users": 4000,
+      "streamers": 60,
+      "view_sessions": 45133,
+      "payment_attempts": 4943,
+      "transactions": 4697,
+      "streamer_daily": 2820,
+      "traffic_boost_daily": 2820
+    },
+    "snapshot_id": "0cec2dce7448a98137559f8cb6485a47d85baa016d7ebeea7ee0824991f8dbae",
+    "timezone": "Asia/Jakarta",
+    "synthetic": true,
+    "warnings": [
+      "仅合成数据，内部数据系统连接尚未配置。"
+    ],
+    "campaigns": [
+      {
+        "campaign_id": "idn-oct-mission",
+        "name": "印尼腰尾主播任务",
+        "start_date": "2026-10-08",
+        "end_date": "2026-10-14"
+      }
+    ],
+    "primary_metrics": [
+      "gift_amount_idr",
+      "watch_duration_hours",
+      "effective_live_days",
+      "live_duration_hours",
+      "viewer_uv"
+    ]
+  },
+  "queries": [
+    {
+      "query_id": "q-2c4dfc4b15786e20",
+      "template": "metadata",
+      "sql": "SELECT key,value FROM metadata",
+      "parameters": {},
+      "elapsed_ms": 0.097
+    },
+    {
+      "query_id": "q-27b82e3c1dba10c9",
+      "template": "profile_users",
+      "sql": "SELECT COUNT(*) n FROM users",
+      "parameters": {},
+      "elapsed_ms": 0.58
+    },
+    {
+      "query_id": "q-efb7cfe4fa436f3d",
+      "template": "profile_streamers",
+      "sql": "SELECT COUNT(*) n FROM streamers",
+      "parameters": {},
+      "elapsed_ms": 0.014
+    },
+    {
+      "query_id": "q-9ac1df8944820b61",
+      "template": "profile_view_sessions",
+      "sql": "SELECT COUNT(*) n FROM view_sessions",
+      "parameters": {},
+      "elapsed_ms": 1.266
+    },
+    {
+      "query_id": "q-afc414d16e0f0ee9",
+      "template": "profile_payment_attempts",
+      "sql": "SELECT COUNT(*) n FROM payment_attempts",
+      "parameters": {},
+      "elapsed_ms": 0.041
+    },
+    {
+      "query_id": "q-bf3e703c31c759c9",
+      "template": "profile_transactions",
+      "sql": "SELECT COUNT(*) n FROM transactions",
+      "parameters": {},
+      "elapsed_ms": 0.582
+    },
+    {
+      "query_id": "q-4d8798ae01e81380",
+      "template": "profile_streamer_daily",
+      "sql": "SELECT COUNT(*) n FROM streamer_daily",
+      "parameters": {},
+      "elapsed_ms": 0.1
+    },
+    {
+      "query_id": "q-fb044edd37eb1c1e",
+      "template": "profile_traffic_boost_daily",
+      "sql": "SELECT COUNT(*) n FROM traffic_boost_daily",
+      "parameters": {},
+      "elapsed_ms": 0.273
+    },
+    {
+      "query_id": "q-72504987c50d47cd",
+      "template": "profile_campaigns",
+      "sql": "SELECT * FROM campaigns ORDER BY campaign_id",
+      "parameters": {},
+      "elapsed_ms": 0.233
+    }
+  ],
+  "elapsed_ms": 3.747,
+  "artifact_path": "/Users/matchalee/Desktop/IDN Workflow/outputs/runs/operations-weekly-demo/e0001.json"
+}

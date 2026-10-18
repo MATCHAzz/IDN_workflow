@@ -1,0 +1,1321 @@
+{
+  "run_id": "operations-campaign-v2",
+  "evidence_id": "e0002",
+  "tool": "review_campaign",
+  "arguments": {
+    "campaign_id": "idn-oct-mission"
+  },
+  "status": "ok",
+  "metric_version": "operations-v2",
+  "rule_version": "operations-rules-v2",
+  "timezone": "Asia/Jakarta",
+  "synthetic": true,
+  "executed_at": "2026-10-18T06:52:52.716137+00:00",
+  "warnings": [
+    "多人群有效直播天数单位为主播日；观看UV按查询期间去重，不能跨日期/层级/主播直接相加。",
+    "活动前后使用同一主播名单与等长窗口；仅描述变化，不是AB实验或活动因果收益。未提供成本数据，不能算ROI或毛利提升。"
+  ],
+  "query_ids": [
+    "q-2c4dfc4b15786e20",
+    "q-227e72b386b50f76",
+    "q-58beda290cc4e40b",
+    "q-51fb538bd582945f",
+    "q-1666b3e2370c8b29",
+    "q-572c3bdb3257f94e",
+    "q-bbf96a7cceba946c",
+    "q-f85b0ae52027c4e3",
+    "q-60ccab1988d0920c",
+    "q-c9512f741d9c618a",
+    "q-daac359a5f9a203e",
+    "q-ee38adb2ff0ed7c6",
+    "q-6c1eaf0d2672e31b",
+    "q-02991d4632b385c9",
+    "q-4572ef5bcd1d3fd3",
+    "q-4e2c2a4af52a6e23",
+    "q-509379b492684985",
+    "q-c67fe3a82bec6a26",
+    "q-405a5267bc81982e",
+    "q-85ec192a5b4d782d",
+    "q-644580f650525001",
+    "q-d40444766662438b",
+    "q-f1ca314acc6ae0ea",
+    "q-e6eab6261a8ef93b",
+    "q-216ff09b1f852ddc",
+    "q-c59562124e68dbb9",
+    "q-3a40db1b68cc7009",
+    "q-69560a4072d373b4",
+    "q-020d10321fbc5210",
+    "q-09807395ef5f9562",
+    "q-feb5d505e6b8f6bd",
+    "q-ddd4c36339e3fd6a",
+    "q-30a90e41c6045322",
+    "q-879eb4435d2d901f",
+    "q-f55247d2198f4162",
+    "q-cf700dda5e0559f1",
+    "q-66ec022dc581257c",
+    "q-2b34df5ab392d240",
+    "q-901bc61922421f84",
+    "q-2759ef9759809bad",
+    "q-e271825589e332a7",
+    "q-e7affd00ab5e6199",
+    "q-02709a4f226fb8a8",
+    "q-c13e63909fca7be3",
+    "q-0f96c4e4114e43d5",
+    "q-ce7c372ad0cae280"
+  ],
+  "skill": "campaign-review",
+  "snapshot_id": "0cec2dce7448a98137559f8cb6485a47d85baa016d7ebeea7ee0824991f8dbae",
+  "data_as_of": "2026-10-17T23:59:59+07:00",
+  "config_id": "c03846ac582c",
+  "result": {
+    "workflow": "campaign_review",
+    "title": "活动复盘",
+    "campaign": {
+      "campaign_id": "idn-oct-mission",
+      "name": "印尼腰尾主播任务",
+      "start_date": "2026-10-08",
+      "end_date": "2026-10-14"
+    },
+    "date_range": [
+      "2026-10-08",
+      "2026-10-14"
+    ],
+    "baseline_range": [
+      "2026-10-01",
+      "2026-10-07"
+    ],
+    "current": {
+      "date_range": [
+        "2026-10-08",
+        "2026-10-14"
+      ],
+      "filters": {
+        "streamer_tier": null,
+        "campaign_id": "idn-oct-mission",
+        "streamer_id": null
+      },
+      "metric_contract": {
+        "metric_version": "operations-v2",
+        "config_id": "c03846ac582c",
+        "timezone": "Asia/Jakarta",
+        "metrics": {
+          "gift_amount_idr": {
+            "label": "打赏金额",
+            "unit": "IDR",
+            "definition": "成功交易金额合计"
+          },
+          "watch_duration_hours": {
+            "label": "看播时长",
+            "unit": "hours",
+            "definition": "观看会话时长合计/3600；观众累计观看小时"
+          },
+          "effective_live_days": {
+            "label": "有效直播天数",
+            "unit": "streamer-days",
+            "definition": "各主播达到有效开播门槛的主播日数之和；单主播查询为天数"
+          },
+          "live_duration_hours": {
+            "label": "直播时长",
+            "unit": "hours",
+            "definition": "主播实际开播秒数合计/3600；与看播时长分开"
+          },
+          "viewer_uv": {
+            "label": "观看观众数",
+            "unit": "users",
+            "definition": "所选期间去重观看用户数，不累加每天UV"
+          }
+        },
+        "rules": {
+          "version": "operations-v2",
+          "timezone": "Asia/Jakarta",
+          "effective_live_day": {
+            "min_live_seconds": 3600,
+            "min_watch_seconds": 1800,
+            "note": "Demo默认：单主播单日直播至少1小时，累计被观看至少30分钟；待替换为实际业务口径。"
+          },
+          "monitoring": {
+            "relative_drop_threshold": 0.2,
+            "minimum_viewers_for_alert": 30,
+            "note": "同长度上一窗口对比；下降至少20%且两期观看UV均不少于30时提醒；非统计检验。"
+          },
+          "traffic_boost": {
+            "min_effective_days_7d": 3,
+            "min_viewer_uv_7d": 30,
+            "suggested_units_per_streamer": 500,
+            "note": "仅生成待审核的助推更新建议；不是实际下发流量，也不是收益预测。"
+          }
+        },
+        "default_focus": [
+          "gift_amount_idr",
+          "watch_duration_hours",
+          "effective_live_days",
+          "live_duration_hours",
+          "viewer_uv"
+        ],
+        "note": "统一供周报、活动复盘与助推更新使用；阈值为可编辑Demo假设。"
+      },
+      "rows": [
+        {
+          "dimension": "all",
+          "metrics": {
+            "gift_amount_idr": 38390000,
+            "watch_duration_hours": 2297.393611111111,
+            "effective_live_days": 138,
+            "live_duration_hours": 349.25,
+            "viewer_uv": 2905
+          }
+        }
+      ],
+      "warnings": [
+        "多人群有效直播天数单位为主播日；观看UV按查询期间去重，不能跨日期/层级/主播直接相加。"
+      ]
+    },
+    "baseline": {
+      "date_range": [
+        "2026-10-01",
+        "2026-10-07"
+      ],
+      "filters": {
+        "streamer_tier": null,
+        "campaign_id": "idn-oct-mission",
+        "streamer_id": null
+      },
+      "metric_contract": {
+        "metric_version": "operations-v2",
+        "config_id": "c03846ac582c",
+        "timezone": "Asia/Jakarta",
+        "metrics": {
+          "gift_amount_idr": {
+            "label": "打赏金额",
+            "unit": "IDR",
+            "definition": "成功交易金额合计"
+          },
+          "watch_duration_hours": {
+            "label": "看播时长",
+            "unit": "hours",
+            "definition": "观看会话时长合计/3600；观众累计观看小时"
+          },
+          "effective_live_days": {
+            "label": "有效直播天数",
+            "unit": "streamer-days",
+            "definition": "各主播达到有效开播门槛的主播日数之和；单主播查询为天数"
+          },
+          "live_duration_hours": {
+            "label": "直播时长",
+            "unit": "hours",
+            "definition": "主播实际开播秒数合计/3600；与看播时长分开"
+          },
+          "viewer_uv": {
+            "label": "观看观众数",
+            "unit": "users",
+            "definition": "所选期间去重观看用户数，不累加每天UV"
+          }
+        },
+        "rules": {
+          "version": "operations-v2",
+          "timezone": "Asia/Jakarta",
+          "effective_live_day": {
+            "min_live_seconds": 3600,
+            "min_watch_seconds": 1800,
+            "note": "Demo默认：单主播单日直播至少1小时，累计被观看至少30分钟；待替换为实际业务口径。"
+          },
+          "monitoring": {
+            "relative_drop_threshold": 0.2,
+            "minimum_viewers_for_alert": 30,
+            "note": "同长度上一窗口对比；下降至少20%且两期观看UV均不少于30时提醒；非统计检验。"
+          },
+          "traffic_boost": {
+            "min_effective_days_7d": 3,
+            "min_viewer_uv_7d": 30,
+            "suggested_units_per_streamer": 500,
+            "note": "仅生成待审核的助推更新建议；不是实际下发流量，也不是收益预测。"
+          }
+        },
+        "default_focus": [
+          "gift_amount_idr",
+          "watch_duration_hours",
+          "effective_live_days",
+          "live_duration_hours",
+          "viewer_uv"
+        ],
+        "note": "统一供周报、活动复盘与助推更新使用；阈值为可编辑Demo假设。"
+      },
+      "rows": [
+        {
+          "dimension": "all",
+          "metrics": {
+            "gift_amount_idr": 38140000,
+            "watch_duration_hours": 2040.141111111111,
+            "effective_live_days": 134,
+            "live_duration_hours": 349.5,
+            "viewer_uv": 2780
+          }
+        }
+      ],
+      "warnings": [
+        "多人群有效直播天数单位为主播日；观看UV按查询期间去重，不能跨日期/层级/主播直接相加。"
+      ]
+    },
+    "breakdown": {
+      "date_range": [
+        "2026-10-08",
+        "2026-10-14"
+      ],
+      "filters": {
+        "streamer_tier": null,
+        "campaign_id": "idn-oct-mission",
+        "streamer_id": null
+      },
+      "metric_contract": {
+        "metric_version": "operations-v2",
+        "config_id": "c03846ac582c",
+        "timezone": "Asia/Jakarta",
+        "metrics": {
+          "gift_amount_idr": {
+            "label": "打赏金额",
+            "unit": "IDR",
+            "definition": "成功交易金额合计"
+          },
+          "watch_duration_hours": {
+            "label": "看播时长",
+            "unit": "hours",
+            "definition": "观看会话时长合计/3600；观众累计观看小时"
+          },
+          "effective_live_days": {
+            "label": "有效直播天数",
+            "unit": "streamer-days",
+            "definition": "各主播达到有效开播门槛的主播日数之和；单主播查询为天数"
+          },
+          "live_duration_hours": {
+            "label": "直播时长",
+            "unit": "hours",
+            "definition": "主播实际开播秒数合计/3600；与看播时长分开"
+          },
+          "viewer_uv": {
+            "label": "观看观众数",
+            "unit": "users",
+            "definition": "所选期间去重观看用户数，不累加每天UV"
+          }
+        },
+        "rules": {
+          "version": "operations-v2",
+          "timezone": "Asia/Jakarta",
+          "effective_live_day": {
+            "min_live_seconds": 3600,
+            "min_watch_seconds": 1800,
+            "note": "Demo默认：单主播单日直播至少1小时，累计被观看至少30分钟；待替换为实际业务口径。"
+          },
+          "monitoring": {
+            "relative_drop_threshold": 0.2,
+            "minimum_viewers_for_alert": 30,
+            "note": "同长度上一窗口对比；下降至少20%且两期观看UV均不少于30时提醒；非统计检验。"
+          },
+          "traffic_boost": {
+            "min_effective_days_7d": 3,
+            "min_viewer_uv_7d": 30,
+            "suggested_units_per_streamer": 500,
+            "note": "仅生成待审核的助推更新建议；不是实际下发流量，也不是收益预测。"
+          }
+        },
+        "default_focus": [
+          "gift_amount_idr",
+          "watch_duration_hours",
+          "effective_live_days",
+          "live_duration_hours",
+          "viewer_uv"
+        ],
+        "note": "统一供周报、活动复盘与助推更新使用；阈值为可编辑Demo假设。"
+      },
+      "rows": [
+        {
+          "dimension": "mid",
+          "metrics": {
+            "gift_amount_idr": 18630000,
+            "watch_duration_hours": 1181.9588888888889,
+            "effective_live_days": 74,
+            "live_duration_hours": 188.5,
+            "viewer_uv": 1911
+          }
+        },
+        {
+          "dimension": "tail",
+          "metrics": {
+            "gift_amount_idr": 19760000,
+            "watch_duration_hours": 1115.4347222222223,
+            "effective_live_days": 64,
+            "live_duration_hours": 160.75,
+            "viewer_uv": 1902
+          }
+        }
+      ],
+      "warnings": [
+        "多人群有效直播天数单位为主播日；观看UV按查询期间去重，不能跨日期/层级/主播直接相加。"
+      ]
+    },
+    "operations_comparisons": [
+      {
+        "dimension": "all",
+        "metric": "gift_amount_idr",
+        "label": "打赏金额",
+        "unit": "IDR",
+        "current": 38390000,
+        "baseline": 38140000,
+        "delta": 250000,
+        "relative_change": 0.006554798112218143,
+        "status": "ok",
+        "is_anomaly": false
+      },
+      {
+        "dimension": "all",
+        "metric": "watch_duration_hours",
+        "label": "看播时长",
+        "unit": "hours",
+        "current": 2297.393611111111,
+        "baseline": 2040.141111111111,
+        "delta": 257.25250000000005,
+        "relative_change": 0.12609544437830283,
+        "status": "ok",
+        "is_anomaly": false
+      },
+      {
+        "dimension": "all",
+        "metric": "effective_live_days",
+        "label": "有效直播天数",
+        "unit": "streamer-days",
+        "current": 138,
+        "baseline": 134,
+        "delta": 4,
+        "relative_change": 0.029850746268656716,
+        "status": "ok",
+        "is_anomaly": false
+      },
+      {
+        "dimension": "all",
+        "metric": "live_duration_hours",
+        "label": "直播时长",
+        "unit": "hours",
+        "current": 349.25,
+        "baseline": 349.5,
+        "delta": -0.25,
+        "relative_change": -0.000715307582260372,
+        "status": "ok",
+        "is_anomaly": false
+      },
+      {
+        "dimension": "all",
+        "metric": "viewer_uv",
+        "label": "观看观众数",
+        "unit": "users",
+        "current": 2905,
+        "baseline": 2780,
+        "delta": 125,
+        "relative_change": 0.044964028776978415,
+        "status": "ok",
+        "is_anomaly": false
+      }
+    ],
+    "warnings": [
+      "多人群有效直播天数单位为主播日；观看UV按查询期间去重，不能跨日期/层级/主播直接相加。",
+      "活动前后使用同一主播名单与等长窗口；仅描述变化，不是AB实验或活动因果收益。未提供成本数据，不能算ROI或毛利提升。"
+    ]
+  },
+  "queries": [
+    {
+      "query_id": "q-2c4dfc4b15786e20",
+      "template": "metadata",
+      "sql": "SELECT key,value FROM metadata",
+      "parameters": {},
+      "elapsed_ms": 0.089
+    },
+    {
+      "query_id": "q-227e72b386b50f76",
+      "template": "campaign_exists",
+      "sql": "SELECT campaign_id FROM campaigns WHERE campaign_id=:campaign",
+      "parameters": {
+        "campaign": "idn-oct-mission"
+      },
+      "elapsed_ms": 0.018
+    },
+    {
+      "query_id": "q-58beda290cc4e40b",
+      "template": "campaign_definition",
+      "sql": "SELECT * FROM campaigns WHERE campaign_id=:campaign",
+      "parameters": {
+        "campaign": "idn-oct-mission"
+      },
+      "elapsed_ms": 0.015
+    },
+    {
+      "query_id": "q-51fb538bd582945f",
+      "template": "quality_users_duplicate_pk",
+      "sql": "SELECT COUNT(*) n FROM (SELECT user_id FROM users GROUP BY user_id HAVING COUNT(*)>1)",
+      "parameters": {},
+      "elapsed_ms": 0.354
+    },
+    {
+      "query_id": "q-1666b3e2370c8b29",
+      "template": "quality_users_null_pk",
+      "sql": "SELECT COUNT(*) n FROM users WHERE user_id IS NULL",
+      "parameters": {},
+      "elapsed_ms": 0.013
+    },
+    {
+      "query_id": "q-572c3bdb3257f94e",
+      "template": "quality_streamers_duplicate_pk",
+      "sql": "SELECT COUNT(*) n FROM (SELECT streamer_id FROM streamers GROUP BY streamer_id HAVING COUNT(*)>1)",
+      "parameters": {},
+      "elapsed_ms": 0.021
+    },
+    {
+      "query_id": "q-bbf96a7cceba946c",
+      "template": "quality_streamers_null_pk",
+      "sql": "SELECT COUNT(*) n FROM streamers WHERE streamer_id IS NULL",
+      "parameters": {},
+      "elapsed_ms": 0.011
+    },
+    {
+      "query_id": "q-f85b0ae52027c4e3",
+      "template": "quality_view_sessions_duplicate_pk",
+      "sql": "SELECT COUNT(*) n FROM (SELECT session_id FROM view_sessions GROUP BY session_id HAVING COUNT(*)>1)",
+      "parameters": {},
+      "elapsed_ms": 3.519
+    },
+    {
+      "query_id": "q-60ccab1988d0920c",
+      "template": "quality_view_sessions_null_pk",
+      "sql": "SELECT COUNT(*) n FROM view_sessions WHERE session_id IS NULL",
+      "parameters": {},
+      "elapsed_ms": 0.025
+    },
+    {
+      "query_id": "q-c9512f741d9c618a",
+      "template": "quality_payment_attempts_duplicate_pk",
+      "sql": "SELECT COUNT(*) n FROM (SELECT attempt_id FROM payment_attempts GROUP BY attempt_id HAVING COUNT(*)>1)",
+      "parameters": {},
+      "elapsed_ms": 0.421
+    },
+    {
+      "query_id": "q-daac359a5f9a203e",
+      "template": "quality_payment_attempts_null_pk",
+      "sql": "SELECT COUNT(*) n FROM payment_attempts WHERE attempt_id IS NULL",
+      "parameters": {},
+      "elapsed_ms": 0.013
+    },
+    {
+      "query_id": "q-ee38adb2ff0ed7c6",
+      "template": "quality_transactions_duplicate_pk",
+      "sql": "SELECT COUNT(*) n FROM (SELECT transaction_id FROM transactions GROUP BY transaction_id HAVING COUNT(*)>1)",
+      "parameters": {},
+      "elapsed_ms": 0.374
+    },
+    {
+      "query_id": "q-6c1eaf0d2672e31b",
+      "template": "quality_transactions_null_pk",
+      "sql": "SELECT COUNT(*) n FROM transactions WHERE transaction_id IS NULL",
+      "parameters": {},
+      "elapsed_ms": 0.016
+    },
+    {
+      "query_id": "q-02991d4632b385c9",
+      "template": "quality_view_sessions_orphan",
+      "sql": "SELECT COUNT(*) n FROM view_sessions t\n              LEFT JOIN users u ON t.user_id=u.user_id LEFT JOIN streamers s ON t.streamer_id=s.streamer_id\n              WHERE u.user_id IS NULL OR s.streamer_id IS NULL",
+      "parameters": {},
+      "elapsed_ms": 7.249
+    },
+    {
+      "query_id": "q-4572ef5bcd1d3fd3",
+      "template": "quality_coverage_view_sessions",
+      "sql": "SELECT date,COUNT(*) n FROM view_sessions WHERE date BETWEEN :start AND :end GROUP BY date",
+      "parameters": {
+        "start": "2026-10-08",
+        "end": "2026-10-14"
+      },
+      "elapsed_ms": 0.452
+    },
+    {
+      "query_id": "q-4e2c2a4af52a6e23",
+      "template": "quality_dates_view_sessions",
+      "sql": "SELECT date FROM view_sessions GROUP BY date",
+      "parameters": {},
+      "elapsed_ms": 1.699
+    },
+    {
+      "query_id": "q-509379b492684985",
+      "template": "quality_payment_attempts_orphan",
+      "sql": "SELECT COUNT(*) n FROM payment_attempts t\n              LEFT JOIN users u ON t.user_id=u.user_id LEFT JOIN streamers s ON t.streamer_id=s.streamer_id\n              WHERE u.user_id IS NULL OR s.streamer_id IS NULL",
+      "parameters": {},
+      "elapsed_ms": 1.073
+    },
+    {
+      "query_id": "q-c67fe3a82bec6a26",
+      "template": "quality_coverage_payment_attempts",
+      "sql": "SELECT date,COUNT(*) n FROM payment_attempts WHERE date BETWEEN :start AND :end GROUP BY date",
+      "parameters": {
+        "start": "2026-10-08",
+        "end": "2026-10-14"
+      },
+      "elapsed_ms": 0.073
+    },
+    {
+      "query_id": "q-405a5267bc81982e",
+      "template": "quality_dates_payment_attempts",
+      "sql": "SELECT date FROM payment_attempts GROUP BY date",
+      "parameters": {},
+      "elapsed_ms": 0.21
+    },
+    {
+      "query_id": "q-85ec192a5b4d782d",
+      "template": "quality_transactions_orphan",
+      "sql": "SELECT COUNT(*) n FROM transactions t\n              LEFT JOIN users u ON t.user_id=u.user_id LEFT JOIN streamers s ON t.streamer_id=s.streamer_id\n              WHERE u.user_id IS NULL OR s.streamer_id IS NULL",
+      "parameters": {},
+      "elapsed_ms": 1.023
+    },
+    {
+      "query_id": "q-644580f650525001",
+      "template": "quality_coverage_transactions",
+      "sql": "SELECT date,COUNT(*) n FROM transactions WHERE date BETWEEN :start AND :end GROUP BY date",
+      "parameters": {
+        "start": "2026-10-08",
+        "end": "2026-10-14"
+      },
+      "elapsed_ms": 0.069
+    },
+    {
+      "query_id": "q-d40444766662438b",
+      "template": "quality_dates_transactions",
+      "sql": "SELECT date FROM transactions GROUP BY date",
+      "parameters": {},
+      "elapsed_ms": 0.215
+    },
+    {
+      "query_id": "q-f1ca314acc6ae0ea",
+      "template": "quality_transaction_attempt_unique",
+      "sql": "SELECT COUNT(*) n FROM (SELECT attempt_id FROM transactions GROUP BY attempt_id HAVING COUNT(*)>1)",
+      "parameters": {},
+      "elapsed_ms": 0.593
+    },
+    {
+      "query_id": "q-e6eab6261a8ef93b",
+      "template": "quality_transaction_reconciliation",
+      "sql": "SELECT COUNT(*) n FROM transactions t LEFT JOIN payment_attempts a ON t.attempt_id=a.attempt_id\n        WHERE a.attempt_id IS NULL OR a.status!='success' OR t.date!=a.date OR t.user_id!=a.user_id\n        OR t.streamer_id!=a.streamer_id OR t.amount_idr!=a.amount_idr",
+      "parameters": {},
+      "elapsed_ms": 0.736
+    },
+    {
+      "query_id": "q-216ff09b1f852ddc",
+      "template": "quality_missing_successful_transaction",
+      "sql": "SELECT COUNT(*) n FROM payment_attempts a LEFT JOIN transactions t ON a.attempt_id=t.attempt_id\n        WHERE a.status='success' AND t.transaction_id IS NULL",
+      "parameters": {},
+      "elapsed_ms": 0.727
+    },
+    {
+      "query_id": "q-c59562124e68dbb9",
+      "template": "quality_payer_viewer_membership",
+      "sql": "SELECT COUNT(*) n FROM transactions t WHERE NOT EXISTS\n        (SELECT 1 FROM view_sessions v WHERE v.date=t.date AND v.user_id=t.user_id AND v.streamer_id=t.streamer_id)",
+      "parameters": {},
+      "elapsed_ms": 1.898
+    },
+    {
+      "query_id": "q-3a40db1b68cc7009",
+      "template": "quality_payment_attempts_positive_integer_amount",
+      "sql": "SELECT COUNT(*) n FROM payment_attempts WHERE amount_idr IS NULL OR typeof(amount_idr)!='integer' OR amount_idr<=0",
+      "parameters": {},
+      "elapsed_ms": 0.35
+    },
+    {
+      "query_id": "q-69560a4072d373b4",
+      "template": "quality_transactions_positive_integer_amount",
+      "sql": "SELECT COUNT(*) n FROM transactions WHERE amount_idr IS NULL OR typeof(amount_idr)!='integer' OR amount_idr<=0",
+      "parameters": {},
+      "elapsed_ms": 0.317
+    },
+    {
+      "query_id": "q-020d10321fbc5210",
+      "template": "quality_attempt_status",
+      "sql": "SELECT COUNT(*) n FROM payment_attempts WHERE status IS NULL OR status NOT IN ('success','failed')",
+      "parameters": {},
+      "elapsed_ms": 0.263
+    },
+    {
+      "query_id": "q-09807395ef5f9562",
+      "template": "quality_user_dimensions",
+      "sql": "SELECT COUNT(*) n FROM users WHERE platform IS NULL OR platform NOT IN ('Android','iOS') OR channel IS NULL OR channel NOT IN ('organic','ads','referral') OR device_id IS NULL OR length(device_id)=0",
+      "parameters": {},
+      "elapsed_ms": 0.644
+    },
+    {
+      "query_id": "q-feb5d505e6b8f6bd",
+      "template": "quality_streamer_tier",
+      "sql": "SELECT COUNT(*) n FROM streamers WHERE tier IS NULL OR tier NOT IN ('head','mid','tail')",
+      "parameters": {},
+      "elapsed_ms": 0.026
+    },
+    {
+      "query_id": "q-ddd4c36339e3fd6a",
+      "template": "quality_watch_duration",
+      "sql": "SELECT COUNT(*) n FROM view_sessions WHERE duration_seconds IS NULL OR duration_seconds<0",
+      "parameters": {},
+      "elapsed_ms": 1.358
+    },
+    {
+      "query_id": "q-30a90e41c6045322",
+      "template": "operations_quality_broadcast_identity",
+      "sql": "SELECT COUNT(*) n FROM (SELECT date,streamer_id FROM streamer_daily GROUP BY date,streamer_id HAVING COUNT(*)>1)",
+      "parameters": {},
+      "elapsed_ms": 0.625
+    },
+    {
+      "query_id": "q-879eb4435d2d901f",
+      "template": "operations_quality_broadcast_integrity",
+      "sql": "SELECT COUNT(*) n FROM streamer_daily b LEFT JOIN streamers s ON b.streamer_id=s.streamer_id WHERE s.streamer_id IS NULL OR b.date IS NULL OR b.live_seconds IS NULL OR typeof(b.live_seconds)!='integer' OR b.live_seconds<0",
+      "parameters": {},
+      "elapsed_ms": 0.495
+    },
+    {
+      "query_id": "q-f55247d2198f4162",
+      "template": "operations_quality_watch_live_membership",
+      "sql": "SELECT COUNT(*) n FROM view_sessions v LEFT JOIN streamer_daily b ON v.date=b.date AND v.streamer_id=b.streamer_id WHERE b.streamer_id IS NULL OR b.live_seconds<=0 OR v.duration_seconds>b.live_seconds",
+      "parameters": {},
+      "elapsed_ms": 15.448
+    },
+    {
+      "query_id": "q-cf700dda5e0559f1",
+      "template": "operations_quality_boost_integrity",
+      "sql": "SELECT COUNT(*) n FROM traffic_boost_daily b LEFT JOIN streamers s ON b.streamer_id=s.streamer_id WHERE s.streamer_id IS NULL OR b.allocated_units IS NULL OR typeof(b.allocated_units)!='integer' OR b.allocated_units<0 OR b.date IS NULL",
+      "parameters": {},
+      "elapsed_ms": 0.501
+    },
+    {
+      "query_id": "q-66ec022dc581257c",
+      "template": "operations_quality_campaign_cohort",
+      "sql": "SELECT COUNT(*) n FROM campaign_streamers c LEFT JOIN streamers s ON c.streamer_id=s.streamer_id LEFT JOIN campaigns p ON p.campaign_id=c.campaign_id WHERE s.streamer_id IS NULL OR p.campaign_id IS NULL",
+      "parameters": {},
+      "elapsed_ms": 0.046
+    },
+    {
+      "query_id": "q-2b34df5ab392d240",
+      "template": "operations_expected_streamers",
+      "sql": "SELECT COUNT(*) n FROM streamers",
+      "parameters": {},
+      "elapsed_ms": 0.012
+    },
+    {
+      "query_id": "q-901bc61922421f84",
+      "template": "operations_coverage_streamer_daily",
+      "sql": "SELECT date,COUNT(*) n,COUNT(DISTINCT streamer_id) uv FROM streamer_daily GROUP BY date",
+      "parameters": {},
+      "elapsed_ms": 0.326
+    },
+    {
+      "query_id": "q-2759ef9759809bad",
+      "template": "operations_coverage_traffic_boost_daily",
+      "sql": "SELECT date,COUNT(*) n,COUNT(DISTINCT streamer_id) uv FROM traffic_boost_daily GROUP BY date",
+      "parameters": {},
+      "elapsed_ms": 0.332
+    },
+    {
+      "query_id": "q-227e72b386b50f76",
+      "template": "campaign_exists",
+      "sql": "SELECT campaign_id FROM campaigns WHERE campaign_id=:campaign",
+      "parameters": {
+        "campaign": "idn-oct-mission"
+      },
+      "elapsed_ms": 0.009
+    },
+    {
+      "query_id": "q-e271825589e332a7",
+      "template": "operations_period_overall",
+      "sql": "WITH watch_day AS (\n      SELECT date,streamer_id,SUM(duration_seconds) watch_seconds FROM view_sessions\n      WHERE date BETWEEN :start AND :end GROUP BY date,streamer_id\n    ), w AS (\n      SELECT 'all' dimension,SUM(v.duration_seconds)/3600.0 watch_duration_hours,COUNT(DISTINCT v.user_id) viewer_uv\n      FROM view_sessions v JOIN streamers s ON v.streamer_id=s.streamer_id\n      WHERE v.date BETWEEN :start AND :end  AND s.streamer_id IN (SELECT streamer_id FROM campaign_streamers WHERE campaign_id=:campaign) GROUP BY dimension\n    ), gifts AS (\n      SELECT 'all' dimension,SUM(t.amount_idr) gift_amount_idr FROM transactions t JOIN streamers s ON t.streamer_id=s.streamer_id\n      WHERE t.date BETWEEN :start AND :end  AND s.streamer_id IN (SELECT streamer_id FROM campaign_streamers WHERE campaign_id=:campaign) GROUP BY dimension\n    ), live AS (\n      SELECT 'all' dimension,SUM(b.live_seconds)/3600.0 live_duration_hours,\n      SUM(CASE WHEN b.live_seconds>0 AND b.live_seconds>=:min_live AND COALESCE(wd.watch_seconds,0)>=:min_watch THEN 1 ELSE 0 END) effective_live_days\n      FROM streamer_daily b JOIN streamers s ON b.streamer_id=s.streamer_id\n      LEFT JOIN watch_day wd ON b.date=wd.date AND b.streamer_id=wd.streamer_id\n      WHERE b.date BETWEEN :start AND :end  AND s.streamer_id IN (SELECT streamer_id FROM campaign_streamers WHERE campaign_id=:campaign) GROUP BY dimension\n    ) SELECT live.dimension,COALESCE(gifts.gift_amount_idr,0) gift_amount_idr,\n      COALESCE(w.watch_duration_hours,0) watch_duration_hours,live.effective_live_days,live.live_duration_hours,\n      COALESCE(w.viewer_uv,0) viewer_uv FROM live LEFT JOIN w ON live.dimension=w.dimension\n      LEFT JOIN gifts ON live.dimension=gifts.dimension ORDER BY live.dimension",
+      "parameters": {
+        "campaign": "idn-oct-mission",
+        "start": "2026-10-08",
+        "end": "2026-10-14",
+        "min_live": 3600,
+        "min_watch": 1800
+      },
+      "elapsed_ms": 5.759
+    },
+    {
+      "query_id": "q-51fb538bd582945f",
+      "template": "quality_users_duplicate_pk",
+      "sql": "SELECT COUNT(*) n FROM (SELECT user_id FROM users GROUP BY user_id HAVING COUNT(*)>1)",
+      "parameters": {},
+      "elapsed_ms": 0.465
+    },
+    {
+      "query_id": "q-1666b3e2370c8b29",
+      "template": "quality_users_null_pk",
+      "sql": "SELECT COUNT(*) n FROM users WHERE user_id IS NULL",
+      "parameters": {},
+      "elapsed_ms": 0.006
+    },
+    {
+      "query_id": "q-572c3bdb3257f94e",
+      "template": "quality_streamers_duplicate_pk",
+      "sql": "SELECT COUNT(*) n FROM (SELECT streamer_id FROM streamers GROUP BY streamer_id HAVING COUNT(*)>1)",
+      "parameters": {},
+      "elapsed_ms": 0.014
+    },
+    {
+      "query_id": "q-bbf96a7cceba946c",
+      "template": "quality_streamers_null_pk",
+      "sql": "SELECT COUNT(*) n FROM streamers WHERE streamer_id IS NULL",
+      "parameters": {},
+      "elapsed_ms": 0.006
+    },
+    {
+      "query_id": "q-f85b0ae52027c4e3",
+      "template": "quality_view_sessions_duplicate_pk",
+      "sql": "SELECT COUNT(*) n FROM (SELECT session_id FROM view_sessions GROUP BY session_id HAVING COUNT(*)>1)",
+      "parameters": {},
+      "elapsed_ms": 5.236
+    },
+    {
+      "query_id": "q-60ccab1988d0920c",
+      "template": "quality_view_sessions_null_pk",
+      "sql": "SELECT COUNT(*) n FROM view_sessions WHERE session_id IS NULL",
+      "parameters": {},
+      "elapsed_ms": 0.008
+    },
+    {
+      "query_id": "q-c9512f741d9c618a",
+      "template": "quality_payment_attempts_duplicate_pk",
+      "sql": "SELECT COUNT(*) n FROM (SELECT attempt_id FROM payment_attempts GROUP BY attempt_id HAVING COUNT(*)>1)",
+      "parameters": {},
+      "elapsed_ms": 0.639
+    },
+    {
+      "query_id": "q-daac359a5f9a203e",
+      "template": "quality_payment_attempts_null_pk",
+      "sql": "SELECT COUNT(*) n FROM payment_attempts WHERE attempt_id IS NULL",
+      "parameters": {},
+      "elapsed_ms": 0.006
+    },
+    {
+      "query_id": "q-ee38adb2ff0ed7c6",
+      "template": "quality_transactions_duplicate_pk",
+      "sql": "SELECT COUNT(*) n FROM (SELECT transaction_id FROM transactions GROUP BY transaction_id HAVING COUNT(*)>1)",
+      "parameters": {},
+      "elapsed_ms": 0.606
+    },
+    {
+      "query_id": "q-6c1eaf0d2672e31b",
+      "template": "quality_transactions_null_pk",
+      "sql": "SELECT COUNT(*) n FROM transactions WHERE transaction_id IS NULL",
+      "parameters": {},
+      "elapsed_ms": 0.006
+    },
+    {
+      "query_id": "q-02991d4632b385c9",
+      "template": "quality_view_sessions_orphan",
+      "sql": "SELECT COUNT(*) n FROM view_sessions t\n              LEFT JOIN users u ON t.user_id=u.user_id LEFT JOIN streamers s ON t.streamer_id=s.streamer_id\n              WHERE u.user_id IS NULL OR s.streamer_id IS NULL",
+      "parameters": {},
+      "elapsed_ms": 7.1
+    },
+    {
+      "query_id": "q-e7affd00ab5e6199",
+      "template": "quality_coverage_view_sessions",
+      "sql": "SELECT date,COUNT(*) n FROM view_sessions WHERE date BETWEEN :start AND :end GROUP BY date",
+      "parameters": {
+        "start": "2026-10-01",
+        "end": "2026-10-07"
+      },
+      "elapsed_ms": 0.395
+    },
+    {
+      "query_id": "q-4e2c2a4af52a6e23",
+      "template": "quality_dates_view_sessions",
+      "sql": "SELECT date FROM view_sessions GROUP BY date",
+      "parameters": {},
+      "elapsed_ms": 1.723
+    },
+    {
+      "query_id": "q-509379b492684985",
+      "template": "quality_payment_attempts_orphan",
+      "sql": "SELECT COUNT(*) n FROM payment_attempts t\n              LEFT JOIN users u ON t.user_id=u.user_id LEFT JOIN streamers s ON t.streamer_id=s.streamer_id\n              WHERE u.user_id IS NULL OR s.streamer_id IS NULL",
+      "parameters": {},
+      "elapsed_ms": 1.053
+    },
+    {
+      "query_id": "q-02709a4f226fb8a8",
+      "template": "quality_coverage_payment_attempts",
+      "sql": "SELECT date,COUNT(*) n FROM payment_attempts WHERE date BETWEEN :start AND :end GROUP BY date",
+      "parameters": {
+        "start": "2026-10-01",
+        "end": "2026-10-07"
+      },
+      "elapsed_ms": 0.075
+    },
+    {
+      "query_id": "q-405a5267bc81982e",
+      "template": "quality_dates_payment_attempts",
+      "sql": "SELECT date FROM payment_attempts GROUP BY date",
+      "parameters": {},
+      "elapsed_ms": 0.22
+    },
+    {
+      "query_id": "q-85ec192a5b4d782d",
+      "template": "quality_transactions_orphan",
+      "sql": "SELECT COUNT(*) n FROM transactions t\n              LEFT JOIN users u ON t.user_id=u.user_id LEFT JOIN streamers s ON t.streamer_id=s.streamer_id\n              WHERE u.user_id IS NULL OR s.streamer_id IS NULL",
+      "parameters": {},
+      "elapsed_ms": 1.063
+    },
+    {
+      "query_id": "q-c13e63909fca7be3",
+      "template": "quality_coverage_transactions",
+      "sql": "SELECT date,COUNT(*) n FROM transactions WHERE date BETWEEN :start AND :end GROUP BY date",
+      "parameters": {
+        "start": "2026-10-01",
+        "end": "2026-10-07"
+      },
+      "elapsed_ms": 0.073
+    },
+    {
+      "query_id": "q-d40444766662438b",
+      "template": "quality_dates_transactions",
+      "sql": "SELECT date FROM transactions GROUP BY date",
+      "parameters": {},
+      "elapsed_ms": 0.219
+    },
+    {
+      "query_id": "q-f1ca314acc6ae0ea",
+      "template": "quality_transaction_attempt_unique",
+      "sql": "SELECT COUNT(*) n FROM (SELECT attempt_id FROM transactions GROUP BY attempt_id HAVING COUNT(*)>1)",
+      "parameters": {},
+      "elapsed_ms": 0.595
+    },
+    {
+      "query_id": "q-e6eab6261a8ef93b",
+      "template": "quality_transaction_reconciliation",
+      "sql": "SELECT COUNT(*) n FROM transactions t LEFT JOIN payment_attempts a ON t.attempt_id=a.attempt_id\n        WHERE a.attempt_id IS NULL OR a.status!='success' OR t.date!=a.date OR t.user_id!=a.user_id\n        OR t.streamer_id!=a.streamer_id OR t.amount_idr!=a.amount_idr",
+      "parameters": {},
+      "elapsed_ms": 0.837
+    },
+    {
+      "query_id": "q-216ff09b1f852ddc",
+      "template": "quality_missing_successful_transaction",
+      "sql": "SELECT COUNT(*) n FROM payment_attempts a LEFT JOIN transactions t ON a.attempt_id=t.attempt_id\n        WHERE a.status='success' AND t.transaction_id IS NULL",
+      "parameters": {},
+      "elapsed_ms": 0.729
+    },
+    {
+      "query_id": "q-c59562124e68dbb9",
+      "template": "quality_payer_viewer_membership",
+      "sql": "SELECT COUNT(*) n FROM transactions t WHERE NOT EXISTS\n        (SELECT 1 FROM view_sessions v WHERE v.date=t.date AND v.user_id=t.user_id AND v.streamer_id=t.streamer_id)",
+      "parameters": {},
+      "elapsed_ms": 1.785
+    },
+    {
+      "query_id": "q-3a40db1b68cc7009",
+      "template": "quality_payment_attempts_positive_integer_amount",
+      "sql": "SELECT COUNT(*) n FROM payment_attempts WHERE amount_idr IS NULL OR typeof(amount_idr)!='integer' OR amount_idr<=0",
+      "parameters": {},
+      "elapsed_ms": 0.279
+    },
+    {
+      "query_id": "q-69560a4072d373b4",
+      "template": "quality_transactions_positive_integer_amount",
+      "sql": "SELECT COUNT(*) n FROM transactions WHERE amount_idr IS NULL OR typeof(amount_idr)!='integer' OR amount_idr<=0",
+      "parameters": {},
+      "elapsed_ms": 0.267
+    },
+    {
+      "query_id": "q-020d10321fbc5210",
+      "template": "quality_attempt_status",
+      "sql": "SELECT COUNT(*) n FROM payment_attempts WHERE status IS NULL OR status NOT IN ('success','failed')",
+      "parameters": {},
+      "elapsed_ms": 0.26
+    },
+    {
+      "query_id": "q-09807395ef5f9562",
+      "template": "quality_user_dimensions",
+      "sql": "SELECT COUNT(*) n FROM users WHERE platform IS NULL OR platform NOT IN ('Android','iOS') OR channel IS NULL OR channel NOT IN ('organic','ads','referral') OR device_id IS NULL OR length(device_id)=0",
+      "parameters": {},
+      "elapsed_ms": 0.618
+    },
+    {
+      "query_id": "q-feb5d505e6b8f6bd",
+      "template": "quality_streamer_tier",
+      "sql": "SELECT COUNT(*) n FROM streamers WHERE tier IS NULL OR tier NOT IN ('head','mid','tail')",
+      "parameters": {},
+      "elapsed_ms": 0.018
+    },
+    {
+      "query_id": "q-ddd4c36339e3fd6a",
+      "template": "quality_watch_duration",
+      "sql": "SELECT COUNT(*) n FROM view_sessions WHERE duration_seconds IS NULL OR duration_seconds<0",
+      "parameters": {},
+      "elapsed_ms": 1.295
+    },
+    {
+      "query_id": "q-30a90e41c6045322",
+      "template": "operations_quality_broadcast_identity",
+      "sql": "SELECT COUNT(*) n FROM (SELECT date,streamer_id FROM streamer_daily GROUP BY date,streamer_id HAVING COUNT(*)>1)",
+      "parameters": {},
+      "elapsed_ms": 0.61
+    },
+    {
+      "query_id": "q-879eb4435d2d901f",
+      "template": "operations_quality_broadcast_integrity",
+      "sql": "SELECT COUNT(*) n FROM streamer_daily b LEFT JOIN streamers s ON b.streamer_id=s.streamer_id WHERE s.streamer_id IS NULL OR b.date IS NULL OR b.live_seconds IS NULL OR typeof(b.live_seconds)!='integer' OR b.live_seconds<0",
+      "parameters": {},
+      "elapsed_ms": 0.442
+    },
+    {
+      "query_id": "q-f55247d2198f4162",
+      "template": "operations_quality_watch_live_membership",
+      "sql": "SELECT COUNT(*) n FROM view_sessions v LEFT JOIN streamer_daily b ON v.date=b.date AND v.streamer_id=b.streamer_id WHERE b.streamer_id IS NULL OR b.live_seconds<=0 OR v.duration_seconds>b.live_seconds",
+      "parameters": {},
+      "elapsed_ms": 15.532
+    },
+    {
+      "query_id": "q-cf700dda5e0559f1",
+      "template": "operations_quality_boost_integrity",
+      "sql": "SELECT COUNT(*) n FROM traffic_boost_daily b LEFT JOIN streamers s ON b.streamer_id=s.streamer_id WHERE s.streamer_id IS NULL OR b.allocated_units IS NULL OR typeof(b.allocated_units)!='integer' OR b.allocated_units<0 OR b.date IS NULL",
+      "parameters": {},
+      "elapsed_ms": 0.497
+    },
+    {
+      "query_id": "q-66ec022dc581257c",
+      "template": "operations_quality_campaign_cohort",
+      "sql": "SELECT COUNT(*) n FROM campaign_streamers c LEFT JOIN streamers s ON c.streamer_id=s.streamer_id LEFT JOIN campaigns p ON p.campaign_id=c.campaign_id WHERE s.streamer_id IS NULL OR p.campaign_id IS NULL",
+      "parameters": {},
+      "elapsed_ms": 0.017
+    },
+    {
+      "query_id": "q-2b34df5ab392d240",
+      "template": "operations_expected_streamers",
+      "sql": "SELECT COUNT(*) n FROM streamers",
+      "parameters": {},
+      "elapsed_ms": 0.007
+    },
+    {
+      "query_id": "q-901bc61922421f84",
+      "template": "operations_coverage_streamer_daily",
+      "sql": "SELECT date,COUNT(*) n,COUNT(DISTINCT streamer_id) uv FROM streamer_daily GROUP BY date",
+      "parameters": {},
+      "elapsed_ms": 0.313
+    },
+    {
+      "query_id": "q-2759ef9759809bad",
+      "template": "operations_coverage_traffic_boost_daily",
+      "sql": "SELECT date,COUNT(*) n,COUNT(DISTINCT streamer_id) uv FROM traffic_boost_daily GROUP BY date",
+      "parameters": {},
+      "elapsed_ms": 0.334
+    },
+    {
+      "query_id": "q-227e72b386b50f76",
+      "template": "campaign_exists",
+      "sql": "SELECT campaign_id FROM campaigns WHERE campaign_id=:campaign",
+      "parameters": {
+        "campaign": "idn-oct-mission"
+      },
+      "elapsed_ms": 0.008
+    },
+    {
+      "query_id": "q-0f96c4e4114e43d5",
+      "template": "operations_period_overall",
+      "sql": "WITH watch_day AS (\n      SELECT date,streamer_id,SUM(duration_seconds) watch_seconds FROM view_sessions\n      WHERE date BETWEEN :start AND :end GROUP BY date,streamer_id\n    ), w AS (\n      SELECT 'all' dimension,SUM(v.duration_seconds)/3600.0 watch_duration_hours,COUNT(DISTINCT v.user_id) viewer_uv\n      FROM view_sessions v JOIN streamers s ON v.streamer_id=s.streamer_id\n      WHERE v.date BETWEEN :start AND :end  AND s.streamer_id IN (SELECT streamer_id FROM campaign_streamers WHERE campaign_id=:campaign) GROUP BY dimension\n    ), gifts AS (\n      SELECT 'all' dimension,SUM(t.amount_idr) gift_amount_idr FROM transactions t JOIN streamers s ON t.streamer_id=s.streamer_id\n      WHERE t.date BETWEEN :start AND :end  AND s.streamer_id IN (SELECT streamer_id FROM campaign_streamers WHERE campaign_id=:campaign) GROUP BY dimension\n    ), live AS (\n      SELECT 'all' dimension,SUM(b.live_seconds)/3600.0 live_duration_hours,\n      SUM(CASE WHEN b.live_seconds>0 AND b.live_seconds>=:min_live AND COALESCE(wd.watch_seconds,0)>=:min_watch THEN 1 ELSE 0 END) effective_live_days\n      FROM streamer_daily b JOIN streamers s ON b.streamer_id=s.streamer_id\n      LEFT JOIN watch_day wd ON b.date=wd.date AND b.streamer_id=wd.streamer_id\n      WHERE b.date BETWEEN :start AND :end  AND s.streamer_id IN (SELECT streamer_id FROM campaign_streamers WHERE campaign_id=:campaign) GROUP BY dimension\n    ) SELECT live.dimension,COALESCE(gifts.gift_amount_idr,0) gift_amount_idr,\n      COALESCE(w.watch_duration_hours,0) watch_duration_hours,live.effective_live_days,live.live_duration_hours,\n      COALESCE(w.viewer_uv,0) viewer_uv FROM live LEFT JOIN w ON live.dimension=w.dimension\n      LEFT JOIN gifts ON live.dimension=gifts.dimension ORDER BY live.dimension",
+      "parameters": {
+        "campaign": "idn-oct-mission",
+        "start": "2026-10-01",
+        "end": "2026-10-07",
+        "min_live": 3600,
+        "min_watch": 1800
+      },
+      "elapsed_ms": 5.391
+    },
+    {
+      "query_id": "q-51fb538bd582945f",
+      "template": "quality_users_duplicate_pk",
+      "sql": "SELECT COUNT(*) n FROM (SELECT user_id FROM users GROUP BY user_id HAVING COUNT(*)>1)",
+      "parameters": {},
+      "elapsed_ms": 0.514
+    },
+    {
+      "query_id": "q-1666b3e2370c8b29",
+      "template": "quality_users_null_pk",
+      "sql": "SELECT COUNT(*) n FROM users WHERE user_id IS NULL",
+      "parameters": {},
+      "elapsed_ms": 0.006
+    },
+    {
+      "query_id": "q-572c3bdb3257f94e",
+      "template": "quality_streamers_duplicate_pk",
+      "sql": "SELECT COUNT(*) n FROM (SELECT streamer_id FROM streamers GROUP BY streamer_id HAVING COUNT(*)>1)",
+      "parameters": {},
+      "elapsed_ms": 0.013
+    },
+    {
+      "query_id": "q-bbf96a7cceba946c",
+      "template": "quality_streamers_null_pk",
+      "sql": "SELECT COUNT(*) n FROM streamers WHERE streamer_id IS NULL",
+      "parameters": {},
+      "elapsed_ms": 0.005
+    },
+    {
+      "query_id": "q-f85b0ae52027c4e3",
+      "template": "quality_view_sessions_duplicate_pk",
+      "sql": "SELECT COUNT(*) n FROM (SELECT session_id FROM view_sessions GROUP BY session_id HAVING COUNT(*)>1)",
+      "parameters": {},
+      "elapsed_ms": 5.381
+    },
+    {
+      "query_id": "q-60ccab1988d0920c",
+      "template": "quality_view_sessions_null_pk",
+      "sql": "SELECT COUNT(*) n FROM view_sessions WHERE session_id IS NULL",
+      "parameters": {},
+      "elapsed_ms": 0.013
+    },
+    {
+      "query_id": "q-c9512f741d9c618a",
+      "template": "quality_payment_attempts_duplicate_pk",
+      "sql": "SELECT COUNT(*) n FROM (SELECT attempt_id FROM payment_attempts GROUP BY attempt_id HAVING COUNT(*)>1)",
+      "parameters": {},
+      "elapsed_ms": 0.701
+    },
+    {
+      "query_id": "q-daac359a5f9a203e",
+      "template": "quality_payment_attempts_null_pk",
+      "sql": "SELECT COUNT(*) n FROM payment_attempts WHERE attempt_id IS NULL",
+      "parameters": {},
+      "elapsed_ms": 0.006
+    },
+    {
+      "query_id": "q-ee38adb2ff0ed7c6",
+      "template": "quality_transactions_duplicate_pk",
+      "sql": "SELECT COUNT(*) n FROM (SELECT transaction_id FROM transactions GROUP BY transaction_id HAVING COUNT(*)>1)",
+      "parameters": {},
+      "elapsed_ms": 0.581
+    },
+    {
+      "query_id": "q-6c1eaf0d2672e31b",
+      "template": "quality_transactions_null_pk",
+      "sql": "SELECT COUNT(*) n FROM transactions WHERE transaction_id IS NULL",
+      "parameters": {},
+      "elapsed_ms": 0.006
+    },
+    {
+      "query_id": "q-02991d4632b385c9",
+      "template": "quality_view_sessions_orphan",
+      "sql": "SELECT COUNT(*) n FROM view_sessions t\n              LEFT JOIN users u ON t.user_id=u.user_id LEFT JOIN streamers s ON t.streamer_id=s.streamer_id\n              WHERE u.user_id IS NULL OR s.streamer_id IS NULL",
+      "parameters": {},
+      "elapsed_ms": 7.378
+    },
+    {
+      "query_id": "q-4572ef5bcd1d3fd3",
+      "template": "quality_coverage_view_sessions",
+      "sql": "SELECT date,COUNT(*) n FROM view_sessions WHERE date BETWEEN :start AND :end GROUP BY date",
+      "parameters": {
+        "start": "2026-10-08",
+        "end": "2026-10-14"
+      },
+      "elapsed_ms": 0.369
+    },
+    {
+      "query_id": "q-4e2c2a4af52a6e23",
+      "template": "quality_dates_view_sessions",
+      "sql": "SELECT date FROM view_sessions GROUP BY date",
+      "parameters": {},
+      "elapsed_ms": 1.655
+    },
+    {
+      "query_id": "q-509379b492684985",
+      "template": "quality_payment_attempts_orphan",
+      "sql": "SELECT COUNT(*) n FROM payment_attempts t\n              LEFT JOIN users u ON t.user_id=u.user_id LEFT JOIN streamers s ON t.streamer_id=s.streamer_id\n              WHERE u.user_id IS NULL OR s.streamer_id IS NULL",
+      "parameters": {},
+      "elapsed_ms": 1.016
+    },
+    {
+      "query_id": "q-c67fe3a82bec6a26",
+      "template": "quality_coverage_payment_attempts",
+      "sql": "SELECT date,COUNT(*) n FROM payment_attempts WHERE date BETWEEN :start AND :end GROUP BY date",
+      "parameters": {
+        "start": "2026-10-08",
+        "end": "2026-10-14"
+      },
+      "elapsed_ms": 0.051
+    },
+    {
+      "query_id": "q-405a5267bc81982e",
+      "template": "quality_dates_payment_attempts",
+      "sql": "SELECT date FROM payment_attempts GROUP BY date",
+      "parameters": {},
+      "elapsed_ms": 0.199
+    },
+    {
+      "query_id": "q-85ec192a5b4d782d",
+      "template": "quality_transactions_orphan",
+      "sql": "SELECT COUNT(*) n FROM transactions t\n              LEFT JOIN users u ON t.user_id=u.user_id LEFT JOIN streamers s ON t.streamer_id=s.streamer_id\n              WHERE u.user_id IS NULL OR s.streamer_id IS NULL",
+      "parameters": {},
+      "elapsed_ms": 0.976
+    },
+    {
+      "query_id": "q-644580f650525001",
+      "template": "quality_coverage_transactions",
+      "sql": "SELECT date,COUNT(*) n FROM transactions WHERE date BETWEEN :start AND :end GROUP BY date",
+      "parameters": {
+        "start": "2026-10-08",
+        "end": "2026-10-14"
+      },
+      "elapsed_ms": 0.048
+    },
+    {
+      "query_id": "q-d40444766662438b",
+      "template": "quality_dates_transactions",
+      "sql": "SELECT date FROM transactions GROUP BY date",
+      "parameters": {},
+      "elapsed_ms": 0.189
+    },
+    {
+      "query_id": "q-f1ca314acc6ae0ea",
+      "template": "quality_transaction_attempt_unique",
+      "sql": "SELECT COUNT(*) n FROM (SELECT attempt_id FROM transactions GROUP BY attempt_id HAVING COUNT(*)>1)",
+      "parameters": {},
+      "elapsed_ms": 0.562
+    },
+    {
+      "query_id": "q-e6eab6261a8ef93b",
+      "template": "quality_transaction_reconciliation",
+      "sql": "SELECT COUNT(*) n FROM transactions t LEFT JOIN payment_attempts a ON t.attempt_id=a.attempt_id\n        WHERE a.attempt_id IS NULL OR a.status!='success' OR t.date!=a.date OR t.user_id!=a.user_id\n        OR t.streamer_id!=a.streamer_id OR t.amount_idr!=a.amount_idr",
+      "parameters": {},
+      "elapsed_ms": 0.706
+    },
+    {
+      "query_id": "q-216ff09b1f852ddc",
+      "template": "quality_missing_successful_transaction",
+      "sql": "SELECT COUNT(*) n FROM payment_attempts a LEFT JOIN transactions t ON a.attempt_id=t.attempt_id\n        WHERE a.status='success' AND t.transaction_id IS NULL",
+      "parameters": {},
+      "elapsed_ms": 0.78
+    },
+    {
+      "query_id": "q-c59562124e68dbb9",
+      "template": "quality_payer_viewer_membership",
+      "sql": "SELECT COUNT(*) n FROM transactions t WHERE NOT EXISTS\n        (SELECT 1 FROM view_sessions v WHERE v.date=t.date AND v.user_id=t.user_id AND v.streamer_id=t.streamer_id)",
+      "parameters": {},
+      "elapsed_ms": 1.715
+    },
+    {
+      "query_id": "q-3a40db1b68cc7009",
+      "template": "quality_payment_attempts_positive_integer_amount",
+      "sql": "SELECT COUNT(*) n FROM payment_attempts WHERE amount_idr IS NULL OR typeof(amount_idr)!='integer' OR amount_idr<=0",
+      "parameters": {},
+      "elapsed_ms": 0.276
+    },
+    {
+      "query_id": "q-69560a4072d373b4",
+      "template": "quality_transactions_positive_integer_amount",
+      "sql": "SELECT COUNT(*) n FROM transactions WHERE amount_idr IS NULL OR typeof(amount_idr)!='integer' OR amount_idr<=0",
+      "parameters": {},
+      "elapsed_ms": 0.269
+    },
+    {
+      "query_id": "q-020d10321fbc5210",
+      "template": "quality_attempt_status",
+      "sql": "SELECT COUNT(*) n FROM payment_attempts WHERE status IS NULL OR status NOT IN ('success','failed')",
+      "parameters": {},
+      "elapsed_ms": 0.257
+    },
+    {
+      "query_id": "q-09807395ef5f9562",
+      "template": "quality_user_dimensions",
+      "sql": "SELECT COUNT(*) n FROM users WHERE platform IS NULL OR platform NOT IN ('Android','iOS') OR channel IS NULL OR channel NOT IN ('organic','ads','referral') OR device_id IS NULL OR length(device_id)=0",
+      "parameters": {},
+      "elapsed_ms": 0.627
+    },
+    {
+      "query_id": "q-feb5d505e6b8f6bd",
+      "template": "quality_streamer_tier",
+      "sql": "SELECT COUNT(*) n FROM streamers WHERE tier IS NULL OR tier NOT IN ('head','mid','tail')",
+      "parameters": {},
+      "elapsed_ms": 0.016
+    },
+    {
+      "query_id": "q-ddd4c36339e3fd6a",
+      "template": "quality_watch_duration",
+      "sql": "SELECT COUNT(*) n FROM view_sessions WHERE duration_seconds IS NULL OR duration_seconds<0",
+      "parameters": {},
+      "elapsed_ms": 1.293
+    },
+    {
+      "query_id": "q-30a90e41c6045322",
+      "template": "operations_quality_broadcast_identity",
+      "sql": "SELECT COUNT(*) n FROM (SELECT date,streamer_id FROM streamer_daily GROUP BY date,streamer_id HAVING COUNT(*)>1)",
+      "parameters": {},
+      "elapsed_ms": 0.632
+    },
+    {
+      "query_id": "q-879eb4435d2d901f",
+      "template": "operations_quality_broadcast_integrity",
+      "sql": "SELECT COUNT(*) n FROM streamer_daily b LEFT JOIN streamers s ON b.streamer_id=s.streamer_id WHERE s.streamer_id IS NULL OR b.date IS NULL OR b.live_seconds IS NULL OR typeof(b.live_seconds)!='integer' OR b.live_seconds<0",
+      "parameters": {},
+      "elapsed_ms": 0.443
+    },
+    {
+      "query_id": "q-f55247d2198f4162",
+      "template": "operations_quality_watch_live_membership",
+      "sql": "SELECT COUNT(*) n FROM view_sessions v LEFT JOIN streamer_daily b ON v.date=b.date AND v.streamer_id=b.streamer_id WHERE b.streamer_id IS NULL OR b.live_seconds<=0 OR v.duration_seconds>b.live_seconds",
+      "parameters": {},
+      "elapsed_ms": 15.193
+    },
+    {
+      "query_id": "q-cf700dda5e0559f1",
+      "template": "operations_quality_boost_integrity",
+      "sql": "SELECT COUNT(*) n FROM traffic_boost_daily b LEFT JOIN streamers s ON b.streamer_id=s.streamer_id WHERE s.streamer_id IS NULL OR b.allocated_units IS NULL OR typeof(b.allocated_units)!='integer' OR b.allocated_units<0 OR b.date IS NULL",
+      "parameters": {},
+      "elapsed_ms": 0.465
+    },
+    {
+      "query_id": "q-66ec022dc581257c",
+      "template": "operations_quality_campaign_cohort",
+      "sql": "SELECT COUNT(*) n FROM campaign_streamers c LEFT JOIN streamers s ON c.streamer_id=s.streamer_id LEFT JOIN campaigns p ON p.campaign_id=c.campaign_id WHERE s.streamer_id IS NULL OR p.campaign_id IS NULL",
+      "parameters": {},
+      "elapsed_ms": 0.014
+    },
+    {
+      "query_id": "q-2b34df5ab392d240",
+      "template": "operations_expected_streamers",
+      "sql": "SELECT COUNT(*) n FROM streamers",
+      "parameters": {},
+      "elapsed_ms": 0.006
+    },
+    {
+      "query_id": "q-901bc61922421f84",
+      "template": "operations_coverage_streamer_daily",
+      "sql": "SELECT date,COUNT(*) n,COUNT(DISTINCT streamer_id) uv FROM streamer_daily GROUP BY date",
+      "parameters": {},
+      "elapsed_ms": 0.29
+    },
+    {
+      "query_id": "q-2759ef9759809bad",
+      "template": "operations_coverage_traffic_boost_daily",
+      "sql": "SELECT date,COUNT(*) n,COUNT(DISTINCT streamer_id) uv FROM traffic_boost_daily GROUP BY date",
+      "parameters": {},
+      "elapsed_ms": 0.298
+    },
+    {
+      "query_id": "q-227e72b386b50f76",
+      "template": "campaign_exists",
+      "sql": "SELECT campaign_id FROM campaigns WHERE campaign_id=:campaign",
+      "parameters": {
+        "campaign": "idn-oct-mission"
+      },
+      "elapsed_ms": 0.007
+    },
+    {
+      "query_id": "q-ce7c372ad0cae280",
+      "template": "operations_period_streamer_tier",
+      "sql": "WITH watch_day AS (\n      SELECT date,streamer_id,SUM(duration_seconds) watch_seconds FROM view_sessions\n      WHERE date BETWEEN :start AND :end GROUP BY date,streamer_id\n    ), w AS (\n      SELECT s.tier dimension,SUM(v.duration_seconds)/3600.0 watch_duration_hours,COUNT(DISTINCT v.user_id) viewer_uv\n      FROM view_sessions v JOIN streamers s ON v.streamer_id=s.streamer_id\n      WHERE v.date BETWEEN :start AND :end  AND s.streamer_id IN (SELECT streamer_id FROM campaign_streamers WHERE campaign_id=:campaign) GROUP BY dimension\n    ), gifts AS (\n      SELECT s.tier dimension,SUM(t.amount_idr) gift_amount_idr FROM transactions t JOIN streamers s ON t.streamer_id=s.streamer_id\n      WHERE t.date BETWEEN :start AND :end  AND s.streamer_id IN (SELECT streamer_id FROM campaign_streamers WHERE campaign_id=:campaign) GROUP BY dimension\n    ), live AS (\n      SELECT s.tier dimension,SUM(b.live_seconds)/3600.0 live_duration_hours,\n      SUM(CASE WHEN b.live_seconds>0 AND b.live_seconds>=:min_live AND COALESCE(wd.watch_seconds,0)>=:min_watch THEN 1 ELSE 0 END) effective_live_days\n      FROM streamer_daily b JOIN streamers s ON b.streamer_id=s.streamer_id\n      LEFT JOIN watch_day wd ON b.date=wd.date AND b.streamer_id=wd.streamer_id\n      WHERE b.date BETWEEN :start AND :end  AND s.streamer_id IN (SELECT streamer_id FROM campaign_streamers WHERE campaign_id=:campaign) GROUP BY dimension\n    ) SELECT live.dimension,COALESCE(gifts.gift_amount_idr,0) gift_amount_idr,\n      COALESCE(w.watch_duration_hours,0) watch_duration_hours,live.effective_live_days,live.live_duration_hours,\n      COALESCE(w.viewer_uv,0) viewer_uv FROM live LEFT JOIN w ON live.dimension=w.dimension\n      LEFT JOIN gifts ON live.dimension=gifts.dimension ORDER BY live.dimension",
+      "parameters": {
+        "campaign": "idn-oct-mission",
+        "start": "2026-10-08",
+        "end": "2026-10-14",
+        "min_live": 3600,
+        "min_watch": 1800
+      },
+      "elapsed_ms": 5.727
+    }
+  ],
+  "elapsed_ms": 146.807,
+  "artifact_path": "/Users/matchalee/Desktop/IDN Workflow/outputs/runs/operations-campaign-v2/e0002.json"
+}

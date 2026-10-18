@@ -1,0 +1,47 @@
+{
+  "identity": "418f406b80bb2f6fb2b25909c6d9147cac5f081b47816df994c17b55c7b5a649",
+  "request": {
+    "plan": {
+      "workflow": "traffic_boost_update",
+      "report_date": "2026-10-17",
+      "queries": [
+        {
+          "sql_file": "../../knowledge/sql_examples/period_metrics.sql",
+          "result_kind": "metrics",
+          "window": "current",
+          "label": "近七天运营指标"
+        },
+        {
+          "sql_file": "../../knowledge/sql_examples/boost_candidates.sql",
+          "result_kind": "boost",
+          "window": "current",
+          "label": "助推更新待审核清单"
+        }
+      ],
+      "notes": {
+        "observations": [
+          "根据统一有效开播与观众门槛生成建议，并保留与昨日额度的差值。"
+        ],
+        "next_checks": [
+          "审核建议名单与额度后再考虑真实下发；当前只输出本地清单。"
+        ]
+      }
+    },
+    "sql": [
+      {
+        "result_kind": "metrics",
+        "window": "current",
+        "label": "近七天运营指标",
+        "sql": "-- 整体五指标参考。日期和主播范围由工具注入，不读取物理表。\nWITH watch_day AS (\n  SELECT date, streamer_id, SUM(duration_seconds) AS watch_seconds\n  FROM watch_events GROUP BY date, streamer_id\n), watch_total AS (\n  SELECT SUM(duration_seconds) / 3600.0 AS watch_duration_hours,\n         COUNT(DISTINCT viewer_id) AS viewer_uv FROM watch_events\n), gift_total AS (\n  SELECT SUM(amount_idr) AS gift_amount_idr FROM gift_events\n), live_total AS (\n  SELECT SUM(b.live_seconds) / 3600.0 AS live_duration_hours,\n         SUM(CASE WHEN b.live_seconds > 0 AND b.live_seconds >= :min_live_seconds\n                   AND COALESCE(w.watch_seconds, 0) >= :min_watch_seconds THEN 1 ELSE 0 END) AS effective_live_days\n  FROM broadcast_days b LEFT JOIN watch_day w ON b.date = w.date AND b.streamer_id = w.streamer_id\n)\nSELECT 'all' AS dimension, COALESCE(g.gift_amount_idr, 0) AS gift_amount_idr,\n       COALESCE(w.watch_duration_hours, 0) AS watch_duration_hours,\n       COALESCE(l.effective_live_days, 0) AS effective_live_days,\n       COALESCE(l.live_duration_hours, 0) AS live_duration_hours, w.viewer_uv\nFROM live_total l CROSS JOIN watch_total w CROSS JOIN gift_total g\n"
+      },
+      {
+        "result_kind": "boost",
+        "window": "current",
+        "label": "助推更新待审核清单",
+        "sql": "-- 最近七天主播级指标与昨日实际额度；规则仅产生待审核建议。\nWITH watch_day AS (\n  SELECT date, streamer_id, SUM(duration_seconds) AS watch_seconds FROM watch_events GROUP BY date, streamer_id\n), watches AS (\n  SELECT streamer_id, SUM(duration_seconds) / 3600.0 AS watch_duration_hours,\n         COUNT(DISTINCT viewer_id) AS viewer_uv FROM watch_events GROUP BY streamer_id\n), gifts AS (\n  SELECT streamer_id, SUM(amount_idr) AS gift_amount_idr FROM gift_events GROUP BY streamer_id\n), live AS (\n  SELECT b.streamer_id, SUM(b.live_seconds) / 3600.0 AS live_duration_hours,\n         SUM(CASE WHEN b.live_seconds > 0 AND b.live_seconds >= :min_live_seconds\n                  AND COALESCE(w.watch_seconds, 0) >= :min_watch_seconds THEN 1 ELSE 0 END) AS effective_live_days\n  FROM broadcast_days b LEFT JOIN watch_day w ON b.date = w.date AND b.streamer_id = w.streamer_id\n  GROUP BY b.streamer_id\n), base AS (\n  SELECT s.streamer_id, s.tier AS streamer_tier,\n         COALESCE(g.gift_amount_idr, 0) AS gift_amount_idr,\n         COALESCE(w.watch_duration_hours, 0) AS watch_duration_hours,\n         COALESCE(l.effective_live_days, 0) AS effective_live_days,\n         COALESCE(l.live_duration_hours, 0) AS live_duration_hours,\n         COALESCE(w.viewer_uv, 0) AS viewer_uv, b.allocated_units AS previous_units\n  FROM streamer_profiles s LEFT JOIN watches w ON s.streamer_id = w.streamer_id\n  LEFT JOIN gifts g ON s.streamer_id = g.streamer_id LEFT JOIN live l ON s.streamer_id = l.streamer_id\n  LEFT JOIN boost_snapshots b ON s.streamer_id = b.streamer_id AND b.date = :previous_snapshot_date\n), suggested AS (\n  SELECT streamer_id, streamer_tier, gift_amount_idr, watch_duration_hours, effective_live_days,\n         live_duration_hours, viewer_uv, previous_units,\n         CASE WHEN effective_live_days >= :boost_days AND viewer_uv >= :boost_viewers THEN 1 ELSE 0 END AS eligible,\n         CASE WHEN effective_live_days >= :boost_days AND viewer_uv >= :boost_viewers THEN :boost_units ELSE 0 END AS suggested_units\n  FROM base\n)\nSELECT streamer_id, streamer_tier, gift_amount_idr, watch_duration_hours, effective_live_days,\n       live_duration_hours, viewer_uv, eligible, previous_units, suggested_units,\n       suggested_units - previous_units AS delta_units,\n       CASE WHEN previous_units IS NULL THEN 'review_missing_snapshot'\n            WHEN suggested_units > previous_units THEN 'increase'\n            WHEN suggested_units < previous_units THEN 'decrease' ELSE 'keep' END AS action,\n       CASE WHEN eligible = 1 THEN '达到有效开播与观众门槛' ELSE '未达到有效开播或观众门槛' END AS reason\nFROM suggested ORDER BY eligible DESC, watch_duration_hours DESC, streamer_id\n"
+      }
+    ],
+    "knowledge_id": "5547cd0902d94fe370a5d92f33a031d6a5b71bbfffd32c798954fb579d2a5518",
+    "snapshot_id": "0cec2dce7448a98137559f8cb6485a47d85baa016d7ebeea7ee0824991f8dbae"
+  }
+}

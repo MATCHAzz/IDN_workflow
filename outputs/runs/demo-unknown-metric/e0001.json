@@ -1,0 +1,40 @@
+{
+  "run_id": "demo-unknown-metric",
+  "evidence_id": "e0001",
+  "tool": "query_kpis",
+  "arguments": {
+    "start_date": "2026-10-15",
+    "end_date": "2026-10-15",
+    "metrics": [
+      "refund_rate"
+    ]
+  },
+  "status": "error",
+  "metric_version": "liveops-v1",
+  "rule_version": "demo-rules-v1",
+  "timezone": "Asia/Jakarta",
+  "synthetic": true,
+  "executed_at": "2026-10-18T06:34:08.425972+00:00",
+  "warnings": [],
+  "query_ids": [
+    "q-2c4dfc4b15786e20"
+  ],
+  "skill": "business-kpi-analysis",
+  "snapshot_id": "1093b21f6545f248b90bedf95de6511831563cc087adaf443099115d9c21ea82",
+  "data_as_of": "2026-10-17T23:59:59+07:00",
+  "error": {
+    "code": "UNSUPPORTED_METRIC",
+    "message": "无此指标或缺少数据：refund_rate"
+  },
+  "queries": [
+    {
+      "query_id": "q-2c4dfc4b15786e20",
+      "template": "metadata",
+      "sql": "SELECT key,value FROM metadata",
+      "parameters": {},
+      "elapsed_ms": 0.11
+    }
+  ],
+  "elapsed_ms": 1.943,
+  "artifact_path": "/Users/matchalee/Desktop/IDN Workflow/outputs/runs/demo-unknown-metric/e0001.json"
+}

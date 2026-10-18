@@ -1,0 +1,17 @@
+{
+  "seed": "20261018",
+  "start_date": "2026-09-20",
+  "end_date": "2026-10-17",
+  "timezone": "Asia/Jakarta",
+  "synthetic": "true",
+  "snapshot_id": "1093b21f6545f248b90bedf95de6511831563cc087adaf443099115d9c21ea82",
+  "generator_version": "rebuilt-v1",
+  "row_counts": {
+    "users": 4000,
+    "streamers": 60,
+    "view_sessions": 37850,
+    "payment_attempts": 8358,
+    "transactions": 7734
+  },
+  "note": "原 ZIP 未提供，按方案重建；样本量与原 Demo 不完全相同。日期已按 Asia/Jakarta 归属。"
+}

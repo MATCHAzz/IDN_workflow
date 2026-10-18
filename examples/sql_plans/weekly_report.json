@@ -1,0 +1,13 @@
+{
+  "workflow":"weekly_report",
+  "report_date":"2026-10-17",
+  "queries":[
+    {"sql_file":"../../knowledge/sql_examples/period_metrics.sql","result_kind":"metrics","window":"current","label":"本期五项核心指标"},
+    {"sql_file":"../../knowledge/sql_examples/period_comparison.sql","result_kind":"comparison","window":"comparison","label":"整体与层级周期对比"},
+    {"sql_file":"tail_streamers.sql","result_kind":"table","window":"current","filters":{"streamer_tier":"tail"},"label":"尾部主播观看表现下钻","only_if_alerts":true}
+  ],
+  "notes":{
+    "observations":["整体与层级分别监控，避免整体表现掩盖局部下降；追加查询用于查看尾部主播的观看分布。"],
+    "next_checks":["若需证明变化原因，还应补充活动曝光与分发记录；当前聚合比较只支持现象与排查方向。"]
+  }
+}

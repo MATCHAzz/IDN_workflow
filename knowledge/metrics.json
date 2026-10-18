@@ -1,0 +1,12 @@
+{
+  "version": "knowledge-sql-v3",
+  "timezone": "Asia/Jakarta",
+  "metrics": {
+    "gift_amount_idr": {"label":"打赏金额","unit":"IDR","definition":"gift_events.amount_idr合计，仅成功交易","aggregation":"SUM(amount_idr)","zero":"所选主播窗口无交易时为0"},
+    "watch_duration_hours": {"label":"看播时长","unit":"hours","definition":"观众累计观看秒数/3600","aggregation":"SUM(duration_seconds)/3600.0","zero":"无观看时为0"},
+    "effective_live_days": {"label":"有效直播天数","unit":"streamer-days","definition":"先按单主播单日汇总观看时长，再判断直播秒数和被观看秒数都达到配置门槛；达标计1，最后求和","aggregation":"SUM(CASE WHEN live_seconds>0 AND live_seconds>=:min_live_seconds AND watch_seconds>=:min_watch_seconds THEN 1 ELSE 0 END)","zero":"无达标主播日为0；单主播单位可解释为天"},
+    "live_duration_hours": {"label":"直播时长","unit":"hours","definition":"主播实际开播秒数/3600，与看播时长分开","aggregation":"SUM(live_seconds)/3600.0","zero":"不开播的完整日志记录为0；日志缺失则质检失败"},
+    "viewer_uv": {"label":"观看观众数","unit":"users","definition":"整个所选期间的观看用户去重数，不相加每日或分组UV","aggregation":"COUNT(DISTINCT viewer_id)","zero":"无观看时为0"}
+  },
+  "invariants": ["各事实表先独立聚合再关联，避免JOIN放大金额和时长", "层级或主播UV可能重叠，不能相加当整体UV", "有效直播门槛读取参数，不自行填写另一套数字", "不得将名义打赏金额称为真实毛利或活动因果收益"]
+}

@@ -1,0 +1,50 @@
+{
+  "request": {
+    "workflow": "weekly_report",
+    "arguments": {
+      "end_date": "2026-10-17"
+    },
+    "snapshot_id": "0cec2dce7448a98137559f8cb6485a47d85baa016d7ebeea7ee0824991f8dbae",
+    "config_id": "c03846ac582c"
+  },
+  "run_id": "operations-weekly-demo",
+  "status": "completed",
+  "stages": [
+    {
+      "stage": "read_data",
+      "tool": "get_data_profile",
+      "status": "ok",
+      "evidence_id": "e0001",
+      "artifact_path": "/Users/matchalee/Desktop/IDN Workflow/outputs/runs/operations-weekly-demo/e0001.json"
+    },
+    {
+      "stage": "calculate_and_monitor",
+      "tool": "update_weekly_report",
+      "status": "ok",
+      "evidence_id": "e0002",
+      "artifact_path": "/Users/matchalee/Desktop/IDN Workflow/outputs/runs/operations-weekly-demo/e0002.json"
+    },
+    {
+      "stage": "render_dashboard",
+      "tool": "export_report",
+      "status": "ok",
+      "evidence_id": "e0003",
+      "artifact_path": "/Users/matchalee/Desktop/IDN Workflow/outputs/runs/operations-weekly-demo/e0003.json"
+    },
+    {
+      "stage": "prepare_delivery_draft",
+      "status": "ok",
+      "artifact_path": "/Users/matchalee/Desktop/IDN Workflow/outputs/runs/operations-weekly-demo/delivery_draft.json"
+    }
+  ],
+  "human_approved": false,
+  "report_paths": {
+    "md": "/Users/matchalee/Desktop/IDN Workflow/outputs/runs/operations-weekly-demo/report-537687574b62/report.md",
+    "json": "/Users/matchalee/Desktop/IDN Workflow/outputs/runs/operations-weekly-demo/report-537687574b62/report.json",
+    "html": "/Users/matchalee/Desktop/IDN Workflow/outputs/runs/operations-weekly-demo/report-537687574b62/report.html"
+  },
+  "delivery_draft": "/Users/matchalee/Desktop/IDN Workflow/outputs/runs/operations-weekly-demo/delivery_draft.json",
+  "elapsed_seconds": 0.256,
+  "manual_minutes": null,
+  "review_minutes": null
+}

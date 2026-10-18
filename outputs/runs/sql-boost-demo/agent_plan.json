@@ -1,0 +1,26 @@
+{
+  "workflow": "traffic_boost_update",
+  "report_date": "2026-10-17",
+  "queries": [
+    {
+      "sql_file": "../../knowledge/sql_examples/period_metrics.sql",
+      "result_kind": "metrics",
+      "window": "current",
+      "label": "近七天运营指标"
+    },
+    {
+      "sql_file": "../../knowledge/sql_examples/boost_candidates.sql",
+      "result_kind": "boost",
+      "window": "current",
+      "label": "助推更新待审核清单"
+    }
+  ],
+  "notes": {
+    "observations": [
+      "根据统一有效开播与观众门槛生成建议，并保留与昨日额度的差值。"
+    ],
+    "next_checks": [
+      "审核建议名单与额度后再考虑真实下发；当前只输出本地清单。"
+    ]
+  }
+}

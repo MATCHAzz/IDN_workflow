@@ -1,0 +1,51 @@
+{
+  "request": {
+    "workflow": "traffic_boost_update",
+    "arguments": {
+      "date": "2026-10-17"
+    },
+    "snapshot_id": "0cec2dce7448a98137559f8cb6485a47d85baa016d7ebeea7ee0824991f8dbae",
+    "config_id": "c03846ac582c"
+  },
+  "run_id": "operations-boost-demo",
+  "status": "completed",
+  "stages": [
+    {
+      "stage": "read_data",
+      "tool": "get_data_profile",
+      "status": "ok",
+      "evidence_id": "e0001",
+      "artifact_path": "/Users/matchalee/Desktop/IDN Workflow/outputs/runs/operations-boost-demo/e0001.json"
+    },
+    {
+      "stage": "calculate_and_monitor",
+      "tool": "update_traffic_boost",
+      "status": "ok",
+      "evidence_id": "e0002",
+      "artifact_path": "/Users/matchalee/Desktop/IDN Workflow/outputs/runs/operations-boost-demo/e0002.json"
+    },
+    {
+      "stage": "render_dashboard",
+      "tool": "export_report",
+      "status": "ok",
+      "evidence_id": "e0003",
+      "artifact_path": "/Users/matchalee/Desktop/IDN Workflow/outputs/runs/operations-boost-demo/e0003.json"
+    },
+    {
+      "stage": "prepare_delivery_draft",
+      "status": "ok",
+      "artifact_path": "/Users/matchalee/Desktop/IDN Workflow/outputs/runs/operations-boost-demo/delivery_draft.json"
+    }
+  ],
+  "human_approved": false,
+  "report_paths": {
+    "md": "/Users/matchalee/Desktop/IDN Workflow/outputs/runs/operations-boost-demo/report-f744d7497dc9/report.md",
+    "json": "/Users/matchalee/Desktop/IDN Workflow/outputs/runs/operations-boost-demo/report-f744d7497dc9/report.json",
+    "html": "/Users/matchalee/Desktop/IDN Workflow/outputs/runs/operations-boost-demo/report-f744d7497dc9/report.html",
+    "csv": "/Users/matchalee/Desktop/IDN Workflow/outputs/runs/operations-boost-demo/report-f744d7497dc9/traffic_boost_candidates.csv"
+  },
+  "delivery_draft": "/Users/matchalee/Desktop/IDN Workflow/outputs/runs/operations-boost-demo/delivery_draft.json",
+  "elapsed_seconds": 0.158,
+  "manual_minutes": null,
+  "review_minutes": null
+}

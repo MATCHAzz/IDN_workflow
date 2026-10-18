@@ -1,0 +1,20 @@
+{
+  "run_id": "sql-boost-demo",
+  "status": "completed",
+  "human_approved": false,
+  "request": {
+    "workflow": "traffic_boost_update",
+    "snapshot_id": "0cec2dce7448a98137559f8cb6485a47d85baa016d7ebeea7ee0824991f8dbae",
+    "knowledge_id": "5547cd0902d94fe370a5d92f33a031d6a5b71bbfffd32c798954fb579d2a5518"
+  },
+  "analysis_mode": "agent_generated_sql",
+  "analysis_evidence_id": "e0006",
+  "report_evidence_id": "e0007",
+  "report_paths": {
+    "md": "/Users/matchalee/Desktop/IDN Workflow/outputs/runs/sql-boost-demo/report-70ea255eb4e0/report.md",
+    "json": "/Users/matchalee/Desktop/IDN Workflow/outputs/runs/sql-boost-demo/report-70ea255eb4e0/report.json",
+    "html": "/Users/matchalee/Desktop/IDN Workflow/outputs/runs/sql-boost-demo/report-70ea255eb4e0/report.html",
+    "csv": "/Users/matchalee/Desktop/IDN Workflow/outputs/runs/sql-boost-demo/report-70ea255eb4e0/traffic_boost_candidates.csv"
+  },
+  "delivery_draft": "/Users/matchalee/Desktop/IDN Workflow/outputs/runs/sql-boost-demo/delivery_draft.json"
+}

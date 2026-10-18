@@ -1,0 +1,91 @@
+{
+  "run_id": "demo-payment-20261015",
+  "evidence_id": "e0001",
+  "tool": "get_data_profile",
+  "arguments": {},
+  "status": "ok",
+  "metric_version": "liveops-v1",
+  "rule_version": "demo-rules-v1",
+  "timezone": "Asia/Jakarta",
+  "synthetic": true,
+  "executed_at": "2026-10-18T06:33:29.129511+00:00",
+  "warnings": [
+    "本版按方案重建合成数据，样本量不等于原 ZIP。"
+  ],
+  "query_ids": [
+    "q-2c4dfc4b15786e20",
+    "q-27b82e3c1dba10c9",
+    "q-efb7cfe4fa436f3d",
+    "q-9ac1df8944820b61",
+    "q-afc414d16e0f0ee9",
+    "q-bf3e703c31c759c9"
+  ],
+  "skill": "data-quality-check",
+  "snapshot_id": "1093b21f6545f248b90bedf95de6511831563cc087adaf443099115d9c21ea82",
+  "data_as_of": "2026-10-17T23:59:59+07:00",
+  "result": {
+    "date_range": [
+      "2026-09-20",
+      "2026-10-17"
+    ],
+    "row_counts": {
+      "users": 4000,
+      "streamers": 60,
+      "view_sessions": 37850,
+      "payment_attempts": 8358,
+      "transactions": 7734
+    },
+    "snapshot_id": "1093b21f6545f248b90bedf95de6511831563cc087adaf443099115d9c21ea82",
+    "timezone": "Asia/Jakarta",
+    "synthetic": true,
+    "warnings": [
+      "本版按方案重建合成数据，样本量不等于原 ZIP。"
+    ]
+  },
+  "queries": [
+    {
+      "query_id": "q-2c4dfc4b15786e20",
+      "template": "metadata",
+      "sql": "SELECT key,value FROM metadata",
+      "parameters": {},
+      "elapsed_ms": 0.674
+    },
+    {
+      "query_id": "q-27b82e3c1dba10c9",
+      "template": "profile_users",
+      "sql": "SELECT COUNT(*) n FROM users",
+      "parameters": {},
+      "elapsed_ms": 0.762
+    },
+    {
+      "query_id": "q-efb7cfe4fa436f3d",
+      "template": "profile_streamers",
+      "sql": "SELECT COUNT(*) n FROM streamers",
+      "parameters": {},
+      "elapsed_ms": 0.014
+    },
+    {
+      "query_id": "q-9ac1df8944820b61",
+      "template": "profile_view_sessions",
+      "sql": "SELECT COUNT(*) n FROM view_sessions",
+      "parameters": {},
+      "elapsed_ms": 1.291
+    },
+    {
+      "query_id": "q-afc414d16e0f0ee9",
+      "template": "profile_payment_attempts",
+      "sql": "SELECT COUNT(*) n FROM payment_attempts",
+      "parameters": {},
+      "elapsed_ms": 0.075
+    },
+    {
+      "query_id": "q-bf3e703c31c759c9",
+      "template": "profile_transactions",
+      "sql": "SELECT COUNT(*) n FROM transactions",
+      "parameters": {},
+      "elapsed_ms": 0.858
+    }
+  ],
+  "elapsed_ms": 8.66,
+  "artifact_path": "/Users/matchalee/Desktop/IDN Workflow/outputs/runs/demo-payment-20261015/e0001.json"
+}

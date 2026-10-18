@@ -1,0 +1,23 @@
+{
+  "seed": "20261020",
+  "start_date": "2026-09-01",
+  "end_date": "2026-10-17",
+  "timezone": "Asia/Jakarta",
+  "synthetic": "true",
+  "snapshot_id": "0cec2dce7448a98137559f8cb6485a47d85baa016d7ebeea7ee0824991f8dbae",
+  "generator_version": "operations-v2",
+  "metric_version": "operations-v2",
+  "rule_version": "operations-rules-v2",
+  "row_counts": {
+    "users": 4000,
+    "streamers": 60,
+    "view_sessions": 45133,
+    "payment_attempts": 4943,
+    "transactions": 4697,
+    "streamer_daily": 2820,
+    "campaigns": 1,
+    "campaign_streamers": 40,
+    "traffic_boost_daily": 2820
+  },
+  "note": "周报、活动复盘和主播流量助推流程的合成多源数据。"
+}

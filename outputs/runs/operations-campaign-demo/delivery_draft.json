@@ -1,0 +1,17 @@
+{
+  "title": "活动复盘",
+  "run_id": "operations-campaign-demo",
+  "status": "draft_not_sent",
+  "date_range": [
+    "2026-10-08",
+    "2026-10-14"
+  ],
+  "artifacts": {
+    "md": "/Users/matchalee/Desktop/IDN Workflow/outputs/runs/operations-campaign-demo/report-1629e62df99b/report.md",
+    "json": "/Users/matchalee/Desktop/IDN Workflow/outputs/runs/operations-campaign-demo/report-1629e62df99b/report.json",
+    "html": "/Users/matchalee/Desktop/IDN Workflow/outputs/runs/operations-campaign-demo/report-1629e62df99b/report.html"
+  },
+  "destination": null,
+  "scheduled_at": null,
+  "note": "本地待推送包。内部系统连接、推送渠道和执行时间尚未配置，不会自动外发。"
+}
