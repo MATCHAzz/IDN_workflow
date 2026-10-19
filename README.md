@@ -44,6 +44,8 @@ SQLGlot用于SQL语法树和来源检查。其余运行逻辑使用标准库。�
 
 | 位置 | 用途 |
 | --- | --- |
+| knowledge/routes.json | 各任务的共同必读与专用知识映射 |
+| knowledge/catalog.json | 知识ID、别名、标签、适用范围、原文定位与关联依赖 |
 | knowledge/metrics.json | 指标定义、单位、聚合与空值口径 |
 | knowledge/schema.json | 允许使用的数据源、字段、粒度和关联 |
 | knowledge/rules.md | 周报、活动、助推与提醒规则 |
@@ -52,6 +54,8 @@ SQLGlot用于SQL语法树和来源检查。其余运行逻辑使用标准库。�
 | skills/ | 任务指引；.agents/skills/是发现链接 |
 
 Agent先get_data_profile、read_business_knowledge、prepare_analysis，再把写好的SQL交execute_readonly_sql。需要时查看结果继续下钻；最后assemble_analysis、export_report、prepare_delivery。所有步骤复用run_id。参数通过--args-file传递，不把SQL直接拼进shell。
+
+read_business_knowledge按topic实际选择规则与SQL参考，共同口径始终加载。需要查找知识时，search_business_knowledge按别名、标签和适用任务查目录，再通过entry_ids补读正文与依赖；例如“独立观众”对应metric.viewer_uv。返回条目位置和选择原因，所有主题仍共用全库knowledge_id。参数文件与维护方法见[知识路由说明](knowledge/README.md)。
 
 业务知识不负责执行数据库；工具也不根据自然语言自动挑模板。数据查询实际使用SQLite方言，接Hive时需要真实只读连接器及方言适配，当前没有假装接上内部库。
 

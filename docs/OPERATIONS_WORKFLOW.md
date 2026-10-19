@@ -19,6 +19,8 @@ flowchart LR
 
 Agent按Skills读取文件知识库，选择任务、编写SQL、根据结果决定下钻。数据库执行SQL决定业务数值；Python负责连接、访问边界、质量检查、结果验证和报告。唯一固定业务查询是liveops/simple_query.py的指定期间打赏金额，作为学习/对照例子。旧固定业务工具及兼容入口已删除。
 
+知识读取已接入routes.json任务映射和catalog.json目录：read_business_knowledge按topic返回共同必读与任务专用知识，可用entry_ids补读并自动补齐依赖；search_business_knowledge按别名、标签及适用任务查目录，不负责语义理解或SQL生成。补读监控/下钻知识沿用同run与原计划，所有读取共用全库knowledge_id。来源、选择原因和文件指纹写入工具证据；详见[知识路由说明](../knowledge/README.md)。
+
 未连接真实内部系统。原始SQL、工具注入范围后的实际SQL、参数、快照、knowledge_id和结果保留在证据文件。run-plan只重放Agent已保存的SQL计划，不调用模型，不作为自然语言能力证明。
 
 ## 数据源

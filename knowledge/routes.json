@@ -1,0 +1,84 @@
+{
+  "version": "knowledge-routes-v1",
+  "common": [
+    "metric.gift_amount_idr",
+    "metric.watch_duration_hours",
+    "metric.effective_live_days",
+    "metric.live_duration_hours",
+    "metric.viewer_uv",
+    "metric.invariants",
+    "schema.logical_sources",
+    "config.operations",
+    "rule.common",
+    "rule.result_contract",
+    "sql.usage"
+  ],
+  "topics": {
+    "metrics": {
+      "description": "指标定义与聚合口径",
+      "entries": [
+        "sql.period_metrics"
+      ]
+    },
+    "ad_hoc": {
+      "description": "临时问数，按问题补读目录条目",
+      "entries": [
+        "sql.period_metrics"
+      ]
+    },
+    "weekly_report": {
+      "description": "周报窗口、监控与期间比较",
+      "entries": [
+        "rule.weekly",
+        "rule.monitoring",
+        "sql.period_metrics",
+        "sql.period_comparison"
+      ]
+    },
+    "campaign_review": {
+      "description": "同名单活动复盘与期间比较",
+      "entries": [
+        "rule.campaign",
+        "rule.monitoring",
+        "sql.period_metrics",
+        "sql.period_comparison"
+      ]
+    },
+    "traffic_boost_update": {
+      "description": "助推规则与主播清单",
+      "entries": [
+        "rule.boost",
+        "sql.period_metrics",
+        "sql.boost_candidates"
+      ]
+    },
+    "data_quality_check": {
+      "description": "数据范围、覆盖与质量检查",
+      "entries": [
+        "rule.quality"
+      ]
+    },
+    "anomaly_monitoring": {
+      "description": "复核已有告警、零基线与样本",
+      "entries": [
+        "rule.monitoring",
+        "sql.period_comparison"
+      ]
+    },
+    "root_cause_drilldown": {
+      "description": "按已有证据选择下钻",
+      "entries": [
+        "rule.drilldown",
+        "rule.monitoring",
+        "sql.period_metrics",
+        "sql.period_comparison"
+      ]
+    },
+    "business_report_writing": {
+      "description": "同版本证据汇总与草稿交付",
+      "entries": [
+        "rule.delivery"
+      ]
+    }
+  }
+}

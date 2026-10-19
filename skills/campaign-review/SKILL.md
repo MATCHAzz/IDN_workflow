@@ -5,7 +5,7 @@ description: Review a LiveOps campaign using business knowledge and Agent-author
 
 # 活动复盘
 
-先get_data_profile确认活动ID，再read_business_knowledge(topic=campaign_review)，读取[知识库](../../knowledge/README.md)。调prepare_analysis(workflow=campaign_review,campaign_id=实际ID)，日期和冻结名单由活动配置确定，不另传report_date。
+先get_data_profile确认活动ID，再read_business_knowledge(topic=campaign_review)，按[知识映射](../../knowledge/README.md)加载共同口径、活动和监控规则及期间SQL参考，检查routing和原文位置。不明确的指标可按目录别名/标签检索，再用entry_ids补读。调prepare_analysis(workflow=campaign_review,campaign_id=实际ID)，日期和冻结名单由活动配置确定，不另传report_date。
 
 Agent根据口径编写本期metrics SQL及comparison SQL，使用execute_readonly_sql、同run计划ID和knowledge_id执行。示例period_metrics.sql和period_comparison.sql可复用结构并修改，数据库工具会将两期限定为同名单、等长窗口。不是由Python根据问句自动选模板。
 

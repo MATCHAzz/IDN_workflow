@@ -5,7 +5,7 @@ description: Update the LiveOps weekly report by reading business knowledge, aut
 
 # 周报更新
 
-1. 用get_data_profile核对日期；调用read_business_knowledge(topic=weekly_report)，读取[指标与表结构](../../knowledge/README.md)及适用SQL示例。运行`.venv/bin/python -m liveops call TOOL --run-id <本任务ID> --args-file <JSON文件>`。
+1. 用get_data_profile核对日期；调用read_business_knowledge(topic=weekly_report)，按[知识映射](../../knowledge/README.md)加载共同口径、周报和监控规则及适用SQL参考，检查返回的routing和原文位置。术语需要查找时按目录别名/标签检索并用entry_ids补读；不替换原计划或run。运行`.venv/bin/python -m liveops call TOOL --run-id <本任务ID> --args-file <JSON文件>`。
 2. 调prepare_analysis，传workflow=weekly_report、report_date，可选streamer_tier。复用返回的计划evidence_id和knowledge_id，不自行更换基线窗口。
 3. **由Agent编写SQL**：本期查询result_kind=metrics、window=current，整体dimension='all'、五项指标；对比查询result_kind=comparison、window=comparison，比较整体与主播层级。可参考period_metrics.sql和period_comparison.sql，不必重新发明标准口径，也不能把自动套模板说成模型写SQL。
 4. 调execute_readonly_sql，传计划ID、知识ID、SQL、result_kind/window和label。结果或质量失败则停止。核对期间UV、看播/开播时长、有效主播日以及JOIN粒度；必要时追加聚合对照SQL。通过语法/只读检查不代表业务计算已获证明。

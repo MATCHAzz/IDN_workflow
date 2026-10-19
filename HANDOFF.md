@@ -2,6 +2,8 @@
 
 更新日期：2026-10-18。项目目录：`/Users/matchalee/Desktop/IDN Workflow`。
 
+2026-10-19补充：已接入文件映射与知识目录。knowledge/routes.json定义共同必读及任务专用条目；knowledge/catalog.json维护稳定ID、别名、标签、适用范围、正文定位与依赖。read_business_knowledge按topic/entry_ids加载正文和关联约束，search_business_knowledge提供目录查找；各主题共用全库knowledge_id。当前Skills已接入，用法与参数文件见[知识路由说明](knowledge/README.md)。本次知识变更会使历史报告的知识版本过期，新业务任务需新run重新查询；未重写历史产物。
+
 ## 1. 当前正在做什么
 
 项目目标是演示如何通过自然语言完成印尼直播运营中的重复分析工作，主要包括：
@@ -167,7 +169,7 @@ python3 -m venv .venv
 
 直接调用工具时，SQL 和参数保存为 JSON 文件，再通过 `--args-file` 传入。一次任务复用同一 `run_id`；任务输入、知识或数据改变后使用新的运行 ID。不要绕过执行工具直接对数据库运行临时脚本。
 
-当前工具链：`get_data_profile` → `read_business_knowledge` → `prepare_analysis` → `execute_readonly_sql` → 按需补充查询 → `assemble_analysis` → `export_report` → `prepare_delivery`。`check_data_quality` 可单独调用，`get_metric_dictionary` 提供知识契约，`query_gift_total` 是固定查询例子。
+当前工具链：`get_data_profile` → `read_business_knowledge` → `prepare_analysis` → `execute_readonly_sql` → 按需补充查询 → `assemble_analysis` → `export_report` → `prepare_delivery`。`search_business_knowledge`可按名称/别名/标签查目录，再用`entry_ids`补读；补读不改变任务计划或全库知识版本。`check_data_quality`可单独调用，`get_metric_dictionary`提供知识契约，`query_gift_total`是固定查询例子。
 
 ## 7. 已有产物与验证状态
 

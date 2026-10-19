@@ -5,7 +5,7 @@ description: Prepare a reviewable streamer traffic-boost update list by reading 
 
 # 主播流量助推更新
 
-get_data_profile确认日期，read_business_knowledge(topic=traffic_boost_update)读取[指标/规则/表结构](../../knowledge/README.md)，prepare_analysis(workflow=traffic_boost_update,report_date=日期)固定近七天范围。
+get_data_profile确认日期，read_business_knowledge(topic=traffic_boost_update)按[知识映射](../../knowledge/README.md)读取共同口径、助推规则及期间/主播清单SQL参考，检查routing和原文位置；可按目录别名/标签查找并用entry_ids补读。prepare_analysis(workflow=traffic_boost_update,report_date=日期)固定近七天范围。
 
 Agent编写两条SQL：整体metrics与完整主播boost清单。参考period_metrics.sql、boost_candidates.sql，交execute_readonly_sql(result_kind=metrics/boost,window=current)执行；门槛、建议额度、昨日日期使用工具参数，不写另一套常数。不同问题可改SQL或追加聚合分析，不在Python中添加新的业务查询函数。
 

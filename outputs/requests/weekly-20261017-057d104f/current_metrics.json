@@ -1,0 +1,8 @@
+{
+  "plan_evidence_id": "e0003",
+  "knowledge_id": "5547cd0902d94fe370a5d92f33a031d6a5b71bbfffd32c798954fb579d2a5518",
+  "sql": "-- 本次周报采用知识库已核对的标准口径；日期、名单与阈值由工具绑定。\n-- 整体五指标参考。日期和主播范围由工具注入，不读取物理表。\nWITH watch_day AS (\n  SELECT date, streamer_id, SUM(duration_seconds) AS watch_seconds\n  FROM watch_events GROUP BY date, streamer_id\n), watch_total AS (\n  SELECT SUM(duration_seconds) / 3600.0 AS watch_duration_hours,\n         COUNT(DISTINCT viewer_id) AS viewer_uv FROM watch_events\n), gift_total AS (\n  SELECT SUM(amount_idr) AS gift_amount_idr FROM gift_events\n), live_total AS (\n  SELECT SUM(b.live_seconds) / 3600.0 AS live_duration_hours,\n         SUM(CASE WHEN b.live_seconds > 0 AND b.live_seconds >= :min_live_seconds\n                   AND COALESCE(w.watch_seconds, 0) >= :min_watch_seconds THEN 1 ELSE 0 END) AS effective_live_days\n  FROM broadcast_days b LEFT JOIN watch_day w ON b.date = w.date AND b.streamer_id = w.streamer_id\n)\nSELECT 'all' AS dimension, COALESCE(g.gift_amount_idr, 0) AS gift_amount_idr,\n       COALESCE(w.watch_duration_hours, 0) AS watch_duration_hours,\n       COALESCE(l.effective_live_days, 0) AS effective_live_days,\n       COALESCE(l.live_duration_hours, 0) AS live_duration_hours, w.viewer_uv\nFROM live_total l CROSS JOIN watch_total w CROSS JOIN gift_total g\n",
+  "result_kind": "metrics",
+  "window": "current",
+  "label": "本周整体五项核心指标"
+}

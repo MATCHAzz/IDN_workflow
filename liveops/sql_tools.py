@@ -11,8 +11,11 @@ from .store import ToolError
 
 
 class SQLToolsMixin:
-    def read_business_knowledge(self,store,meta,topic="metrics"):
-        return knowledge.read(topic)
+    def read_business_knowledge(self,store,meta,topic="metrics",entry_ids=None):
+        return knowledge.read(topic,entry_ids)
+
+    def search_business_knowledge(self,store,meta,query=None,topic=None,tags=None):
+        return knowledge.search(query,topic,tags)
 
     def get_metric_dictionary(self,store,meta):
         return knowledge.contract()

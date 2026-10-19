@@ -24,6 +24,7 @@ class ToolRegistry(SQLToolsMixin):
         self.output_dir = Path(output_dir) if output_dir else ROOT / "outputs"
         definitions={
             "get_data_profile":"data-quality-check","read_business_knowledge":"business-kpi-analysis",
+            "search_business_knowledge":"business-kpi-analysis",
             "get_metric_dictionary":"business-kpi-analysis","check_data_quality":"data-quality-check",
             "prepare_analysis":"weekly-report-update","execute_readonly_sql":"business-kpi-analysis",
             "assemble_analysis":"business-report-writing","export_report":"business-report-writing",

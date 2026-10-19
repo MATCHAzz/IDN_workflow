@@ -5,7 +5,7 @@ description: Read the LiveOps metric and schema knowledge, write SQL for gift am
 
 # 知识库驱动SQL问数
 
-1. get_data_profile确认范围，read_business_knowledge读取[knowledge/](../../knowledge/README.md)。定义、字段、关联、去重和阈值从知识取，不靠猜。
+1. get_data_profile确认范围，read_business_knowledge(topic=ad_hoc；只查指标定义时用metrics)按[知识映射与目录](../../knowledge/README.md)读取共同口径和任务知识。术语不明确时用search_business_knowledge(query=原问题或关键词，可选topic/tags)查名称、别名与标签，再用read_business_knowledge(topic=当前任务,entry_ids=[命中ID])补读正文与依赖；未命中查看目录或澄清，不猜测。定义、字段、关联、去重和阈值从知识取。
 2. 周报/活动/助推使用对应prepare_analysis计划。自定义日期问数用prepare_analysis(workflow=ad_hoc,start_date,end_date，可选streamer_tier/campaign_id)，Agent根据问题选择范围；单项追问也可复用同任务计划，result_kind=table。没有必要日期时先澄清，不能静默换时间。
 3. Agent自己写SQLite SELECT/WITH，保存outputs下SQL与参数JSON。execute_readonly_sql需plan_evidence_id、knowledge_id、sql、window、result_kind。工具自动限定日期和主播范围，只暴露schema.json的逻辑源；不能查询物理表/用户明细。
 4. 五项指标完整输出用metrics契约；补充聚合用table。查五项指标时可参考sql_examples，但需检查所选口径、粒度和单位。只有viewer_id的COUNT(DISTINCT)可用，不能相加每日UV。

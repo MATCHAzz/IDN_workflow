@@ -1,0 +1,655 @@
+{
+  "version": "knowledge-catalog-v1",
+  "entries": [
+    {
+      "id": "metric.gift_amount_idr",
+      "title": "打赏金额",
+      "aliases": [
+        "打赏",
+        "礼物金额",
+        "成功打赏金额",
+        "GMV"
+      ],
+      "tags": [
+        "指标",
+        "金额"
+      ],
+      "topics": [
+        "metrics",
+        "ad_hoc",
+        "weekly_report",
+        "campaign_review",
+        "traffic_boost_update",
+        "data_quality_check",
+        "anomaly_monitoring",
+        "root_cause_drilldown",
+        "business_report_writing"
+      ],
+      "sources": [
+        "gift_events"
+      ],
+      "dialect": "sqlite",
+      "source": {
+        "path": "metrics.json",
+        "pointer": "/metrics/gift_amount_idr"
+      },
+      "requires": [
+        "metric.invariants",
+        "schema.logical_sources"
+      ]
+    },
+    {
+      "id": "metric.watch_duration_hours",
+      "title": "看播时长",
+      "aliases": [
+        "观看时长",
+        "累计观看时长",
+        "被观看时长"
+      ],
+      "tags": [
+        "指标",
+        "观看",
+        "时长"
+      ],
+      "topics": [
+        "metrics",
+        "ad_hoc",
+        "weekly_report",
+        "campaign_review",
+        "traffic_boost_update",
+        "data_quality_check",
+        "anomaly_monitoring",
+        "root_cause_drilldown",
+        "business_report_writing"
+      ],
+      "sources": [
+        "watch_events"
+      ],
+      "dialect": "sqlite",
+      "source": {
+        "path": "metrics.json",
+        "pointer": "/metrics/watch_duration_hours"
+      },
+      "requires": [
+        "metric.invariants",
+        "schema.logical_sources"
+      ]
+    },
+    {
+      "id": "metric.effective_live_days",
+      "title": "有效直播天数",
+      "aliases": [
+        "有效天数",
+        "有效主播日",
+        "达标开播天数"
+      ],
+      "tags": [
+        "指标",
+        "直播",
+        "主播日"
+      ],
+      "topics": [
+        "metrics",
+        "ad_hoc",
+        "weekly_report",
+        "campaign_review",
+        "traffic_boost_update",
+        "data_quality_check",
+        "anomaly_monitoring",
+        "root_cause_drilldown",
+        "business_report_writing"
+      ],
+      "sources": [
+        "broadcast_days",
+        "watch_events"
+      ],
+      "dialect": "sqlite",
+      "source": {
+        "path": "metrics.json",
+        "pointer": "/metrics/effective_live_days"
+      },
+      "requires": [
+        "metric.invariants",
+        "schema.logical_sources",
+        "config.operations",
+        "metric.watch_duration_hours"
+      ]
+    },
+    {
+      "id": "metric.live_duration_hours",
+      "title": "直播时长",
+      "aliases": [
+        "开播时长",
+        "实际直播时长"
+      ],
+      "tags": [
+        "指标",
+        "直播",
+        "时长"
+      ],
+      "topics": [
+        "metrics",
+        "ad_hoc",
+        "weekly_report",
+        "campaign_review",
+        "traffic_boost_update",
+        "data_quality_check",
+        "anomaly_monitoring",
+        "root_cause_drilldown",
+        "business_report_writing"
+      ],
+      "sources": [
+        "broadcast_days"
+      ],
+      "dialect": "sqlite",
+      "source": {
+        "path": "metrics.json",
+        "pointer": "/metrics/live_duration_hours"
+      },
+      "requires": [
+        "metric.invariants",
+        "schema.logical_sources"
+      ]
+    },
+    {
+      "id": "metric.viewer_uv",
+      "title": "观看观众数",
+      "aliases": [
+        "观看UV",
+        "观看 UV",
+        "独立观众",
+        "观看人数",
+        "期间UV",
+        "期间 UV",
+        "去重观众",
+        "UV"
+      ],
+      "tags": [
+        "指标",
+        "观看",
+        "去重"
+      ],
+      "topics": [
+        "metrics",
+        "ad_hoc",
+        "weekly_report",
+        "campaign_review",
+        "traffic_boost_update",
+        "data_quality_check",
+        "anomaly_monitoring",
+        "root_cause_drilldown",
+        "business_report_writing"
+      ],
+      "sources": [
+        "watch_events"
+      ],
+      "dialect": "sqlite",
+      "source": {
+        "path": "metrics.json",
+        "pointer": "/metrics/viewer_uv"
+      },
+      "requires": [
+        "metric.invariants",
+        "schema.logical_sources"
+      ]
+    },
+    {
+      "id": "metric.invariants",
+      "title": "指标聚合与解释约束",
+      "aliases": [
+        "聚合粒度",
+        "UV不能相加",
+        "JOIN放大",
+        "去重约束"
+      ],
+      "tags": [
+        "约束",
+        "聚合",
+        "去重"
+      ],
+      "topics": [
+        "metrics",
+        "ad_hoc",
+        "weekly_report",
+        "campaign_review",
+        "traffic_boost_update",
+        "data_quality_check",
+        "anomaly_monitoring",
+        "root_cause_drilldown",
+        "business_report_writing"
+      ],
+      "sources": [],
+      "dialect": "sqlite",
+      "source": {
+        "path": "metrics.json",
+        "pointer": "/invariants"
+      },
+      "requires": []
+    },
+    {
+      "id": "schema.logical_sources",
+      "title": "逻辑数据源与关联结构",
+      "aliases": [
+        "表结构",
+        "逻辑源",
+        "字段",
+        "数据粒度",
+        "关联关系"
+      ],
+      "tags": [
+        "表结构",
+        "关联",
+        "权限"
+      ],
+      "topics": [
+        "metrics",
+        "ad_hoc",
+        "weekly_report",
+        "campaign_review",
+        "traffic_boost_update",
+        "data_quality_check",
+        "anomaly_monitoring",
+        "root_cause_drilldown",
+        "business_report_writing"
+      ],
+      "sources": [
+        "watch_events",
+        "gift_events",
+        "broadcast_days",
+        "streamer_profiles",
+        "boost_snapshots",
+        "campaign_members"
+      ],
+      "dialect": "sqlite",
+      "source": {
+        "path": "schema.json"
+      },
+      "requires": []
+    },
+    {
+      "id": "config.operations",
+      "title": "运营阈值与配额配置",
+      "aliases": [
+        "阈值",
+        "门槛",
+        "配额",
+        "参数"
+      ],
+      "tags": [
+        "配置",
+        "阈值"
+      ],
+      "topics": [
+        "metrics",
+        "ad_hoc",
+        "weekly_report",
+        "campaign_review",
+        "traffic_boost_update",
+        "data_quality_check",
+        "anomaly_monitoring",
+        "root_cause_drilldown",
+        "business_report_writing"
+      ],
+      "sources": [],
+      "dialect": "sqlite",
+      "source": {
+        "path": "config/operations_metrics.json"
+      },
+      "requires": []
+    },
+    {
+      "id": "rule.common",
+      "title": "通用约束",
+      "aliases": [
+        "只读",
+        "用户明细",
+        "时区",
+        "版本一致性"
+      ],
+      "tags": [
+        "约束",
+        "权限",
+        "版本"
+      ],
+      "topics": [
+        "metrics",
+        "ad_hoc",
+        "weekly_report",
+        "campaign_review",
+        "traffic_boost_update",
+        "data_quality_check",
+        "anomaly_monitoring",
+        "root_cause_drilldown",
+        "business_report_writing"
+      ],
+      "sources": [],
+      "dialect": "sqlite",
+      "source": {
+        "path": "rules.md",
+        "heading": "通用约束"
+      },
+      "requires": []
+    },
+    {
+      "id": "rule.weekly",
+      "title": "周报",
+      "aliases": [
+        "周报更新",
+        "本周对上周"
+      ],
+      "tags": [
+        "规则",
+        "周报",
+        "周期比较"
+      ],
+      "topics": [
+        "weekly_report"
+      ],
+      "sources": [],
+      "dialect": "sqlite",
+      "source": {
+        "path": "rules.md",
+        "heading": "周报"
+      },
+      "requires": []
+    },
+    {
+      "id": "rule.monitoring",
+      "title": "异常监控",
+      "aliases": [
+        "下降提醒",
+        "告警",
+        "零基线",
+        "小样本"
+      ],
+      "tags": [
+        "规则",
+        "告警",
+        "周期比较"
+      ],
+      "topics": [
+        "weekly_report",
+        "campaign_review",
+        "anomaly_monitoring",
+        "root_cause_drilldown"
+      ],
+      "sources": [],
+      "dialect": "sqlite",
+      "source": {
+        "path": "rules.md",
+        "heading": "异常监控"
+      },
+      "requires": [
+        "config.operations"
+      ]
+    },
+    {
+      "id": "rule.campaign",
+      "title": "活动复盘",
+      "aliases": [
+        "活动",
+        "冻结名单",
+        "活动前后对比"
+      ],
+      "tags": [
+        "规则",
+        "活动",
+        "名单"
+      ],
+      "topics": [
+        "campaign_review"
+      ],
+      "sources": [],
+      "dialect": "sqlite",
+      "source": {
+        "path": "rules.md",
+        "heading": "活动复盘"
+      },
+      "requires": []
+    },
+    {
+      "id": "rule.boost",
+      "title": "主播助推",
+      "aliases": [
+        "助推",
+        "流量助推",
+        "助推名单",
+        "额度建议"
+      ],
+      "tags": [
+        "规则",
+        "助推",
+        "配额"
+      ],
+      "topics": [
+        "traffic_boost_update"
+      ],
+      "sources": [],
+      "dialect": "sqlite",
+      "source": {
+        "path": "rules.md",
+        "heading": "主播助推"
+      },
+      "requires": [
+        "config.operations"
+      ]
+    },
+    {
+      "id": "rule.quality",
+      "title": "数据质量",
+      "aliases": [
+        "漏数",
+        "缺失日志",
+        "质检",
+        "质量失败",
+        "对账"
+      ],
+      "tags": [
+        "规则",
+        "质量"
+      ],
+      "topics": [
+        "data_quality_check"
+      ],
+      "sources": [],
+      "dialect": "sqlite",
+      "source": {
+        "path": "rules.md",
+        "heading": "数据质量"
+      },
+      "requires": []
+    },
+    {
+      "id": "rule.drilldown",
+      "title": "下钻",
+      "aliases": [
+        "异常下钻",
+        "原因分析",
+        "层级拆解"
+      ],
+      "tags": [
+        "规则",
+        "下钻"
+      ],
+      "topics": [
+        "root_cause_drilldown"
+      ],
+      "sources": [],
+      "dialect": "sqlite",
+      "source": {
+        "path": "rules.md",
+        "heading": "下钻"
+      },
+      "requires": []
+    },
+    {
+      "id": "rule.delivery",
+      "title": "报告交付",
+      "aliases": [
+        "报告",
+        "待推送包",
+        "草稿",
+        "交付"
+      ],
+      "tags": [
+        "规则",
+        "报告",
+        "交付"
+      ],
+      "topics": [
+        "business_report_writing"
+      ],
+      "sources": [],
+      "dialect": "sqlite",
+      "source": {
+        "path": "rules.md",
+        "heading": "报告交付"
+      },
+      "requires": []
+    },
+    {
+      "id": "rule.result_contract",
+      "title": "SQL结果契约",
+      "aliases": [
+        "结果字段",
+        "输出契约",
+        "comparison",
+        "boost"
+      ],
+      "tags": [
+        "约束",
+        "SQL",
+        "结果契约"
+      ],
+      "topics": [
+        "metrics",
+        "ad_hoc",
+        "weekly_report",
+        "campaign_review",
+        "traffic_boost_update",
+        "data_quality_check",
+        "anomaly_monitoring",
+        "root_cause_drilldown",
+        "business_report_writing"
+      ],
+      "sources": [],
+      "dialect": "sqlite",
+      "source": {
+        "path": "rules.md",
+        "heading": "SQL结果契约"
+      },
+      "requires": []
+    },
+    {
+      "id": "sql.usage",
+      "title": "SQL示例使用说明",
+      "aliases": [
+        "SQL参考",
+        "示例使用方法"
+      ],
+      "tags": [
+        "SQL",
+        "约束"
+      ],
+      "topics": [
+        "metrics",
+        "ad_hoc",
+        "weekly_report",
+        "campaign_review",
+        "traffic_boost_update",
+        "data_quality_check",
+        "anomaly_monitoring",
+        "root_cause_drilldown",
+        "business_report_writing"
+      ],
+      "sources": [],
+      "dialect": "sqlite",
+      "source": {
+        "path": "sql_examples/README.md"
+      },
+      "requires": []
+    },
+    {
+      "id": "sql.period_metrics",
+      "title": "期间五指标SQL参考",
+      "aliases": [
+        "整体指标SQL",
+        "期间聚合"
+      ],
+      "tags": [
+        "SQL",
+        "指标"
+      ],
+      "topics": [
+        "metrics",
+        "ad_hoc",
+        "weekly_report",
+        "campaign_review",
+        "traffic_boost_update",
+        "root_cause_drilldown"
+      ],
+      "sources": [],
+      "dialect": "sqlite",
+      "source": {
+        "path": "sql_examples/period_metrics.sql"
+      },
+      "requires": [
+        "sql.usage",
+        "schema.logical_sources"
+      ]
+    },
+    {
+      "id": "sql.period_comparison",
+      "title": "整体与层级周期比较SQL参考",
+      "aliases": [
+        "前后比较SQL",
+        "层级比较SQL"
+      ],
+      "tags": [
+        "SQL",
+        "周期比较"
+      ],
+      "topics": [
+        "weekly_report",
+        "campaign_review",
+        "anomaly_monitoring",
+        "root_cause_drilldown"
+      ],
+      "sources": [],
+      "dialect": "sqlite",
+      "source": {
+        "path": "sql_examples/period_comparison.sql"
+      },
+      "requires": [
+        "sql.usage",
+        "schema.logical_sources",
+        "rule.monitoring"
+      ]
+    },
+    {
+      "id": "sql.boost_candidates",
+      "title": "主播助推清单SQL参考",
+      "aliases": [
+        "助推SQL",
+        "主播额度SQL"
+      ],
+      "tags": [
+        "SQL",
+        "助推"
+      ],
+      "topics": [
+        "traffic_boost_update"
+      ],
+      "sources": [],
+      "dialect": "sqlite",
+      "source": {
+        "path": "sql_examples/boost_candidates.sql"
+      },
+      "requires": [
+        "sql.usage",
+        "schema.logical_sources",
+        "rule.boost"
+      ]
+    }
+  ]
+}

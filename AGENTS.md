@@ -7,7 +7,7 @@
 1. 使用项目根目录`.venv/bin/python -m liveops tools`查看当前工具。默认数据data/operations-v2/；不存在时执行init，已有快照不覆盖。SQL执行需要requirements.txt中的SQLGlot，使用项目.venv。
 2. 按任务读取相关SKILL.md。skills/存实际文件，.agents/skills/为发现链接，勿维护两份。
 3. 调get_data_profile确认日期与活动。固定Asia/Jakarta；相对日期超出快照时说明，不静默换日。无必要参数时先确认数据范围，再澄清。
-4. 调read_business_knowledge，读取knowledge/下指标、表结构、规则和适用SQL示例。以knowledge_id标识知识版本；知识库只是指引，不执行SQL。
+4. 调read_business_knowledge(topic=任务主题)，按knowledge/routes.json读取共同口径、表结构及专用规则和SQL参考。未知术语可用search_business_knowledge按别名/标签查knowledge/catalog.json，再通过entry_ids补读原文与依赖；未命中不猜测。补读沿用同run和原分析计划，所有主题共用全库knowledge_id；知识库只是指引，不执行SQL。详见knowledge/README.md。
 5. 每个任务用新run_id，同任务所有调用复用。使用prepare_analysis确定周报/活动/助推的日期和名单，再由Agent写SQL，交execute_readonly_sql执行。SQL通过--args-file传递，避免拼接shell文本。
 
 ## Skills路由

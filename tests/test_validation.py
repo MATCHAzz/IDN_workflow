@@ -100,6 +100,36 @@ class ValidationTests(unittest.TestCase):
         with patch.object(knowledge, "CONFIG_PATH", path), self.assertRaises(ToolError):
             knowledge.contract()
 
+    def test_knowledge_directory_calls_save_selection_and_allow_same_run_supplement(self):
+        searched=self.tools.call("search_business_knowledge",{
+            "query":"独立观众","topic":"weekly_report"},"knowledge-route")
+        self.assertEqual(searched["status"],"ok",searched.get("error"))
+        self.assertTrue(any(item["id"]=="metric.viewer_uv" for item in searched["result"]["entries"]))
+        first=self.tools.call("read_business_knowledge",{"topic":"weekly_report"},"knowledge-route")
+        supplement=self.tools.call("read_business_knowledge",{
+            "topic":"root_cause_drilldown","entry_ids":["metric.viewer_uv"]},"knowledge-route")
+        self.assertEqual(first["status"],"ok",first.get("error"))
+        self.assertEqual(supplement["status"],"ok",supplement.get("error"))
+        self.assertEqual(first["knowledge_id"],supplement["knowledge_id"])
+        saved=json.loads(Path(supplement["artifact_path"]).read_text())
+        self.assertEqual(saved["result"]["routing"]["requested_entry_ids"],["metric.viewer_uv"])
+        self.assertTrue(all("source_sha256" in item for item in saved["result"]["knowledge_entries"]))
+
+    def test_catalog_change_invalidates_existing_sql_plan(self):
+        plan=self.tools.call("prepare_analysis",{
+            "workflow":"weekly_report","report_date":"2026-10-17"},"catalog-version")
+        directory=self.root/"knowledge"
+        shutil.copytree(knowledge.KNOWLEDGE_DIR,directory)
+        catalog=directory/"catalog.json"
+        value=json.loads(catalog.read_text())
+        value["entries"][0]["aliases"].append("新增查询别名")
+        catalog.write_text(json.dumps(value,ensure_ascii=False))
+        with patch.object(knowledge,"KNOWLEDGE_DIR",directory):
+            result=self.tools.call("execute_readonly_sql",{
+                "plan_evidence_id":plan["evidence_id"],"knowledge_id":plan["knowledge_id"],
+                "sql":"SELECT SUM(amount_idr) AS total FROM gift_events"},"catalog-version")
+        self.assertEqual(result["error"]["code"],"KNOWLEDGE_MISMATCH")
+
     def test_store_rejects_writes_and_unapproved_tables(self):
         before = (self.data / "liveops.sqlite").read_bytes()
         store = Store(self.data / "liveops.sqlite")
